@@ -10,6 +10,12 @@ Fully managed .NET library to detect the specs of the hardware, available in .NE
 
 This library is ideal for obtaining simple information from PCs in Windows environment, perhaps for a troubleshooting or inventory, or simply to use in the log of your application.
 
+##### Example
+
+<img alt="example" src="example.png">
+
+ 
+
 Supported Windows Versions
 --------
 -   Windows XP (.NET 4.0)
@@ -28,20 +34,27 @@ Supported .NET Versions
 Features
 --------
 
-#### Os
-`GetWindowsVersionNumber` get the correct Windows version.
+### Os
+#### `GetWindowsVersionNumber`
+Get the correct Windows version.
 
-`GetWindowsVersionName` get the Windows version name.
+#### `GetWindowsVersionName`
+Get the Windows version name.
 
-#### Processor
-`GetProcessorName` get the processor name.
+### Processor
+#### `GetProcessorName`
+Get the processor name.
 
-#### Video
-`GetDisplayAdapterName` get the display adapter name.
+### Video
+#### `GetDisplayAdapterName`
+Get the display adapter name.
 
-`GetVideoMemory` get amount of memory of the display adapter. Result in bytes. 
+#### `GetVideoMemory`
+Get amount of memory of the display adapter. Result in bytes. 
 
-#### Memory
-`GetAvailableMemory` get the available phisical memory in bytes.
+### Memory
+#### `GetAvailableMemory`
+Get the available phisical memory in bytes.
 
-`GetInstalledMemory` get the amount of installed phisical memory in bytes.
+#### `GetInstalledMemory`
+Get the amount of installed phisical memory in bytes.
