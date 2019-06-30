@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29020.237
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hto3.SimpleSpecsDetector", "Hto3.SimpleSpecsDetector\Hto3.SimpleSpecsDetector.csproj", "{E6B537E6-6E3E-473B-AB8A-59A4EDBC0A2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hto3.SimpleSpecsDetector.TestNet40", "Hto3.SimpleSpecsDetector.TestNet40\Hto3.SimpleSpecsDetector.TestNet40.csproj", "{92D1F7AA-21B1-45BF-9B50-3B447C3E8A9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hto3.SimpleSpecsDetector.TestNet45", "Hto3.SimpleSpecsDetector.TestNet45\Hto3.SimpleSpecsDetector.TestNet45.csproj", "{9DD56112-3EEC-4779-99D5-0D3710175851}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hto3.SimpleSpecsDetector.TestNet46", "Hto3.SimpleSpecsDetector.TestNet46\Hto3.SimpleSpecsDetector.TestNet46.csproj", "{C28F1B2E-B78D-4BB9-9A01-EAF913788C69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hto3.SimpleSpecsDetector.TestCore22", "Hto3.SimpleSpecsDetector.TestCore22\Hto3.SimpleSpecsDetector.TestCore22.csproj", "{B7C4EAE0-A69B-4B0F-80AB-D05480EB7BB9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F354B9F8-F81F-4C8A-9040-34A76BB6339A}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		nuget-logo.kra = nuget-logo.kra
+		nuget-logo.png = nuget-logo.png
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E6B537E6-6E3E-473B-AB8A-59A4EDBC0A2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6B537E6-6E3E-473B-AB8A-59A4EDBC0A2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6B537E6-6E3E-473B-AB8A-59A4EDBC0A2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6B537E6-6E3E-473B-AB8A-59A4EDBC0A2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92D1F7AA-21B1-45BF-9B50-3B447C3E8A9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92D1F7AA-21B1-45BF-9B50-3B447C3E8A9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92D1F7AA-21B1-45BF-9B50-3B447C3E8A9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92D1F7AA-21B1-45BF-9B50-3B447C3E8A9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DD56112-3EEC-4779-99D5-0D3710175851}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DD56112-3EEC-4779-99D5-0D3710175851}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DD56112-3EEC-4779-99D5-0D3710175851}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DD56112-3EEC-4779-99D5-0D3710175851}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C28F1B2E-B78D-4BB9-9A01-EAF913788C69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C28F1B2E-B78D-4BB9-9A01-EAF913788C69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C28F1B2E-B78D-4BB9-9A01-EAF913788C69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C28F1B2E-B78D-4BB9-9A01-EAF913788C69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7C4EAE0-A69B-4B0F-80AB-D05480EB7BB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7C4EAE0-A69B-4B0F-80AB-D05480EB7BB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7C4EAE0-A69B-4B0F-80AB-D05480EB7BB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7C4EAE0-A69B-4B0F-80AB-D05480EB7BB9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8B5704FF-7FB4-4384-A666-8AF90CE165E5}
+	EndGlobalSection
+EndGlobal
