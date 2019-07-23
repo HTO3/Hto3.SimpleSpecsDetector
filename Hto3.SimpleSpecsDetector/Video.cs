@@ -18,7 +18,7 @@ namespace Hto3.SimpleSpecsDetector
             var wql = new ObjectQuery("SELECT Name FROM Win32_VideoController");
             using (var searcher = new ManagementObjectSearcher(wql))
             {
-                return (String)searcher.Get().Cast<ManagementObject>().First<ManagementObject>()["Name"];
+                return (String)searcher.Get().Cast<ManagementObject>().First()["Name"];
             }
         }
         /// <summary>
@@ -40,8 +40,43 @@ namespace Hto3.SimpleSpecsDetector
                 var wql = new ObjectQuery("SELECT AdapterRAM FROM Win32_VideoController");
                 using (var searcher = new ManagementObjectSearcher(wql))
                 {
-                    return Convert.ToInt64(searcher.Get().Cast<ManagementObject>().First<ManagementObject>()["AdapterRAM"] ?? 0);
+                    return Convert.ToInt64(searcher.Get().Cast<ManagementObject>().First()["AdapterRAM"] ?? 0);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Get the resolution in pixels of the current display in use (focused).
+        /// </summary>
+        /// <returns></returns>
+        public static USize GetCurrentVideoResolution()
+        {
+            var wql = new ObjectQuery("SELECT CurrentHorizontalResolution, CurrentVerticalResolution FROM Win32_VideoController");
+            using (var searcher = new ManagementObjectSearcher(wql))
+            {
+                var managementObject = searcher.Get().Cast<ManagementObject>().First();
+
+                var width = (UInt32)managementObject["CurrentHorizontalResolution"];
+                var height = (UInt32)managementObject["CurrentVerticalResolution"];
+
+                return new USize(width, height);
+            }
+        }
+
+        public struct USize
+        {
+            internal USize(UInt32 width, UInt32 height)
+            {
+                this.Width = width;
+                this.Height = height;
+            }
+
+            public UInt32 Width { get; internal set; }
+            public UInt32 Height { get; internal set; }
+
+            public override string ToString()
+            {
+                return $"{{Width={this.Width}, Height={this.Height}}}";
             }
         }
     }

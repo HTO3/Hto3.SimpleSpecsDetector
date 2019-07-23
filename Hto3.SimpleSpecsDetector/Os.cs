@@ -30,7 +30,7 @@ namespace Hto3.SimpleSpecsDetector
             var wql = new ObjectQuery("SELECT Caption FROM Win32_OperatingSystem");
             using (var searcher = new ManagementObjectSearcher(wql))
             {
-                return (String)searcher.Get().Cast<ManagementObject>().First<ManagementObject>()["Caption"];
+                return (String)searcher.Get().Cast<ManagementObject>().First()["Caption"];
             }
         }
     }

@@ -17,7 +17,7 @@ namespace Hto3.SimpleSpecsDetector
             var wql = new ObjectQuery("SELECT Name FROM Win32_Processor");
             using (var searcher = new ManagementObjectSearcher(wql))
             {
-                return (String)searcher.Get().Cast<ManagementObject>().First<ManagementObject>()["Name"];
+                return (String)searcher.Get().Cast<ManagementObject>().First()["Name"];
             }
         }
     }
