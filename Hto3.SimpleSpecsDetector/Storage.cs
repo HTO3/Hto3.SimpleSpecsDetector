@@ -35,8 +35,13 @@ namespace Hto3.SimpleSpecsDetector
                 this.Size = size;
                 this.Name = name;
             }
-
+            /// <summary>
+            /// Name/model of the HardDisk
+            /// </summary>
             public String Name { get; internal set; }
+            /// <summary>
+            /// Size in bytes
+            /// </summary>
             public UInt64 Size { get; internal set; }            
 
             public override string ToString()

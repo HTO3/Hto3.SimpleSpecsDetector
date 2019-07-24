@@ -17,7 +17,7 @@ namespace Hto3.SimpleSpecsDetector
             var wql = new ObjectQuery("SELECT FreePhysicalMemory FROM Win32_OperatingSystem");
             using (var searcher = new ManagementObjectSearcher(wql))
             {
-                return ((UInt64)searcher.Get().Cast<ManagementObject>().First()["FreePhysicalMemory"]) * 1024;
+                return ((UInt64)searcher.Get().Cast<ManagementObject>().First()["FreePhysicalMemory"]) * 1000;
             }
         }
 
@@ -45,7 +45,7 @@ namespace Hto3.SimpleSpecsDetector
             var wql = new ObjectQuery("SELECT TotalVisibleMemorySize FROM Win32_OperatingSystem");
             using (var searcher = new ManagementObjectSearcher(wql))
             {
-                return ((UInt64)searcher.Get().Cast<ManagementObject>().First()["TotalVisibleMemorySize"]) * 1024;
+                return ((UInt64)searcher.Get().Cast<ManagementObject>().First()["TotalVisibleMemorySize"]) * 1000;
             }
         }
     }
