@@ -52,5 +52,5 @@ Features
 - `GetVisibleMemory` The total amount of physical memory (in Bytes) available to the OperatingSystem. This value does not necessarily indicate the true amount of physical memory, but what is reported to the OperatingSystem as available to it.
 
 ### Motherboard
-- `GetVendorName`
-- `GetModel`
+- `GetVendorName` Get the vendor name.
+- `GetModel` Get the model of the motherboard.

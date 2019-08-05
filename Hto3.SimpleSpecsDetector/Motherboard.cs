@@ -9,7 +9,7 @@ namespace Hto3.SimpleSpecsDetector
     public static class Motherboard
     {
         /// <summary>
-        /// Get the vendor name
+        /// Get the vendor name.
         /// </summary>
         /// <returns></returns>
         public static String GetVendorName()
@@ -22,7 +22,7 @@ namespace Hto3.SimpleSpecsDetector
         }
 
         /// <summary>
-        /// Get the model of the motherboard
+        /// Get the model of the motherboard.
         /// </summary>
         /// <returns></returns>
         public static String GetModel()
