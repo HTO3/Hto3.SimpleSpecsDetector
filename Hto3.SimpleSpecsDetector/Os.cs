@@ -11,7 +11,7 @@ namespace Hto3.SimpleSpecsDetector
     public static class Os
     {
         /// <summary>
-        /// Get the correct Windows version
+        /// Get the correct Windows version.
         /// </summary>
         /// <returns></returns>
         public static Decimal GetWindowsVersionNumber()
@@ -22,7 +22,7 @@ namespace Hto3.SimpleSpecsDetector
         }
 
         /// <summary>
-        /// Get the Windows version name
+        /// Get the Windows version name.
         /// </summary>
         /// <returns></returns>
         public static String GetWindowsVersionName()

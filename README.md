@@ -35,26 +35,22 @@ Features
 --------
 
 ### Os
-#### `GetWindowsVersionNumber`
-Get the correct Windows version.
-
-#### `GetWindowsVersionName`
-Get the Windows version name.
+- `GetWindowsVersionNumber` Get the correct Windows version.
+- `GetWindowsVersionName` Get the Windows version name.
 
 ### Processor
-#### `GetProcessorName`
-Get the processor name.
+- `GetProcessorName` Get the processor name.
 
 ### Video
-#### `GetDisplayAdapterName`
-Get the display adapter name.
-
-#### `GetVideoMemory`
-Get amount of memory of the display adapter. Result in bytes. 
+- `GetDisplayAdapterName` Get the display adapter name.
+- `GetVideoMemory` Get amount of memory of the display adapter. Result in bytes. 
+- `GetCurrentVideoResolution` Get the resolution in pixels of the current display in use (focused).
 
 ### Memory
-#### `GetAvailableMemory`
-Get the available phisical memory in bytes.
+- `GetFreeMemory` Number of bytes of physical memory currently unused and available.
+- `GetInstalledMemory` Get the amount of installed phisical memory in bytes.
+- `GetVisibleMemory` The total amount of physical memory (in Bytes) available to the OperatingSystem. This value does not necessarily indicate the true amount of physical memory, but what is reported to the OperatingSystem as available to it.
 
-#### `GetInstalledMemory`
-Get the amount of installed phisical memory in bytes.
+### Motherboard
+- `GetVendorName`
+- `GetModel`

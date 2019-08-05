@@ -35,7 +35,7 @@ namespace Hto3.SimpleSpecsDetector
         }
 
         /// <summary>
-        /// The total amount of physical memory (in Kbytes) available to the OperatingSystem.
+        /// The total amount of physical memory (in Bytes) available to the OperatingSystem.
         /// This value does not necessarily indicate the true amount of physical memory, but
         /// what is reported to the OperatingSystem as available to it.
         /// </summary>
