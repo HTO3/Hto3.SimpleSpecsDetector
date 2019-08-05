@@ -62,7 +62,9 @@ namespace Hto3.SimpleSpecsDetector
                 return new USize(width, height);
             }
         }
-
+        /// <summary>
+        /// Represents a screen size.
+        /// </summary>
         public struct USize
         {
             internal USize(UInt32 width, UInt32 height)

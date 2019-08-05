@@ -10,7 +10,7 @@ namespace Hto3.SimpleSpecsDetector
     public static class Storage
     {
         /// <summary>
-        /// Get all connected hard disks.
+        /// Get all connected hard disks. The information available is the hard disk name and the size.
         /// </summary>
         /// <returns></returns>
         public static IEnumerable<Disk> GetDisks()
@@ -27,7 +27,9 @@ namespace Hto3.SimpleSpecsDetector
                 }                
             }
         }
-
+        /// <summary>
+        /// Represents a hard disk
+        /// </summary>
         public struct Disk
         {
             internal Disk(UInt64 size, String name)

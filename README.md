@@ -54,3 +54,6 @@ Features
 ### Motherboard
 - `GetVendorName` Get the vendor name.
 - `GetModel` Get the model of the motherboard.
+
+### Storage
+- `GetDisks` Get all connected hard disks. The information available is the hard disk name and the size.
