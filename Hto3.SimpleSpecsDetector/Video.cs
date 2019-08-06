@@ -18,18 +18,21 @@ namespace Hto3.SimpleSpecsDetector
             var wql = new ObjectQuery("SELECT Name FROM Win32_VideoController");
             using (var searcher = new ManagementObjectSearcher(wql))
             {
-                return (String)searcher.Get().Cast<ManagementObject>().First()["Name"];
+                var managementObjectCollection = searcher.Get();
+                if (managementObjectCollection.Count == 0)
+                    return null;
+                return (String)managementObjectCollection.Cast<ManagementObject>().First()["Name"];
             }
         }
         /// <summary>
         /// Get amount of memory of the display adapter. Result in bytes. 
         /// </summary>
         /// <returns></returns>
-        public static Int64 GetVideoMemory()
+        public static Int64? GetVideoMemory()
         {
             var key = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default);
             var subkey = key.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000", false);
-            var sizeFromDriver = (Int64?)subkey.GetValue("HardwareInformation.qwMemorySize");
+            var sizeFromDriver = (Int64?)subkey?.GetValue("HardwareInformation.qwMemorySize");
             
             //if it finds the amount of RAM reported by the driver
             if (sizeFromDriver.HasValue)
@@ -40,7 +43,10 @@ namespace Hto3.SimpleSpecsDetector
                 var wql = new ObjectQuery("SELECT AdapterRAM FROM Win32_VideoController");
                 using (var searcher = new ManagementObjectSearcher(wql))
                 {
-                    return Convert.ToInt64(searcher.Get().Cast<ManagementObject>().First()["AdapterRAM"] ?? 0);
+                    var managementObjectCollection = searcher.Get();
+                    if (managementObjectCollection.Count == 0)
+                        return null;
+                    return Convert.ToInt64(managementObjectCollection.Cast<ManagementObject>().First()["AdapterRAM"] ?? 0);
                 }
             }
         }
@@ -51,13 +57,30 @@ namespace Hto3.SimpleSpecsDetector
         /// <returns></returns>
         public static USize GetCurrentVideoResolution()
         {
-            var wql = new ObjectQuery("SELECT CurrentHorizontalResolution, CurrentVerticalResolution FROM Win32_VideoController");
-            using (var searcher = new ManagementObjectSearcher(wql))
+            //first attempt
+            var wql1 = new ObjectQuery("SELECT CurrentHorizontalResolution, CurrentVerticalResolution FROM Win32_VideoController");
+            using (var searcher1 = new ManagementObjectSearcher(wql1))
             {
-                var managementObject = searcher.Get().Cast<ManagementObject>().First();
+                var managementObjectCollection = searcher1.Get();
+                if (managementObjectCollection.Count > 0)
+                {
+                    var managementObject = managementObjectCollection.Cast<ManagementObject>().First();
 
-                var width = (UInt32)managementObject["CurrentHorizontalResolution"];
-                var height = (UInt32)managementObject["CurrentVerticalResolution"];
+                    var width = (UInt32)managementObject["CurrentHorizontalResolution"];
+                    var height = (UInt32)managementObject["CurrentVerticalResolution"];
+
+                    return new USize(width, height);
+                }            
+            }
+
+            //second attempt
+            var wql2 = new ObjectQuery("SELECT HorizontalResolution, VerticalResolution FROM Win32_DisplayControllerConfiguration");
+            using (var searcher2 = new ManagementObjectSearcher(wql2))
+            {
+                var managementObject = searcher2.Get().Cast<ManagementObject>().First();
+
+                var width = (UInt32)managementObject["HorizontalResolution"];
+                var height = (UInt32)managementObject["VerticalResolution"];
 
                 return new USize(width, height);
             }
