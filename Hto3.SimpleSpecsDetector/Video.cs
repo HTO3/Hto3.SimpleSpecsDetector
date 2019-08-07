@@ -66,10 +66,13 @@ namespace Hto3.SimpleSpecsDetector
                 {
                     var managementObject = managementObjectCollection.Cast<ManagementObject>().First();
 
-                    var width = (UInt32)managementObject["CurrentHorizontalResolution"];
-                    var height = (UInt32)managementObject["CurrentVerticalResolution"];
+                    if (managementObject["CurrentHorizontalResolution"] != null && managementObject["CurrentVerticalResolution"] != null)
+                    {
+                        var width = (UInt32)managementObject["CurrentHorizontalResolution"];
+                        var height = (UInt32)managementObject["CurrentVerticalResolution"];
 
-                    return new USize(width, height);
+                        return new USize(width, height);
+                    }
                 }            
             }
 
