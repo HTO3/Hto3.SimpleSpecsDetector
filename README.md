@@ -35,7 +35,7 @@ Features
 --------
 
 ### Os
-- `GetWindowsVersionNumber` Get the correct Windows version.
+- `GetWindowsVersionNumber` Get the correct Windows version following [this](https://docs.microsoft.com/en-us/windows/win32/sysinfo/operating-system-version) table.
 - `GetWindowsVersionName` Get the Windows version name.
 
 ### Processor

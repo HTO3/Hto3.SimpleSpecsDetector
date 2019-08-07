@@ -11,14 +11,24 @@ namespace Hto3.SimpleSpecsDetector
     public static class Os
     {
         /// <summary>
-        /// Get the correct Windows version.
+        /// Get the correct Windows version following the Microsoft table (https://docs.microsoft.com/en-us/windows/win32/sysinfo/operating-system-version).
         /// </summary>
         /// <returns></returns>
         public static Decimal GetWindowsVersionNumber()
         {
             var key = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default);
             var subkey = key.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion", false);
-            return Decimal.Parse((String)subkey.GetValue("CurrentVersion"), new CultureInfo("en-US"));
+            var versionCulture = new CultureInfo("en-US");
+
+            if (subkey.GetValue("CurrentMajorVersionNumber") != null && subkey.GetValue("CurrentMinorVersionNumber") != null)
+            {
+                var major = subkey.GetValue("CurrentMajorVersionNumber").ToString();
+                var minor = subkey.GetValue("CurrentMinorVersionNumber").ToString();
+
+                return Decimal.Parse($"{major}.{minor}", versionCulture);
+            }
+
+            return Decimal.Parse((String)subkey.GetValue("CurrentVersion"), versionCulture);
         }
 
         /// <summary>
