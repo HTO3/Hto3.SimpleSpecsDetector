@@ -10,7 +10,7 @@ namespace Hto3.SimpleSpecsDetector
     public static class Storage
     {
         /// <summary>
-        /// Get all connected hard disks. The information available is the hard disk name and the size.
+        /// Get all connected hard disks. The information available is the hard disk name and size (in Bytes).
         /// </summary>
         /// <returns></returns>
         public static IEnumerable<Disk> GetDisks()

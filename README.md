@@ -18,12 +18,21 @@ This library is ideal for obtaining simple information from PCs in Windows envir
 
 Supported Windows Versions
 --------
--   Windows XP (.NET 4.0)
--   Windows Vista
--   Windows 7
--   Windows 8
--   Windows 8.1
 -   Windows 10
+-   Windows Server 2019
+-   Windows Server 2016
+-   Windows 8.1
+-   Windows Server 2012 R2
+-   Windows 8
+-   Windows Server 2012
+-   Windows 7
+-   Windows Server 2008 R2
+-   Windows Server 2008
+-   Windows Vista
+-   Windows Server 2003 R2
+-   Windows Server 2003
+-   Windows XP 64-Bit Edition
+-   Windows XP
 -   ~**Future proof** 🐱‍👤
 
 Supported .NET Versions
@@ -53,7 +62,7 @@ Features
 
 ### Motherboard
 - `GetVendorName` Get the vendor name.
-- `GetModel` Get the model of the motherboard.
+- `GetModel` Get the motherboard model.
 
 ### Storage
-- `GetDisks` Get all connected hard disks. The information available is the hard disk name and the size.
+- `GetDisks` Get all connected hard disks. The information available is the hard disk name and size.

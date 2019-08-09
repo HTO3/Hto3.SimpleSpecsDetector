@@ -8,6 +8,9 @@ using System.Text;
 
 namespace Hto3.SimpleSpecsDetector
 {
+    /// <summary>
+    /// Information about the OS
+    /// </summary>
     public static class Os
     {
         /// <summary>

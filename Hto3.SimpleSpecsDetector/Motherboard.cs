@@ -6,6 +6,9 @@ using System.Text;
 
 namespace Hto3.SimpleSpecsDetector
 {
+    /// <summary>
+    /// Information about the motherboard
+    /// </summary>
     public static class Motherboard
     {
         /// <summary>
@@ -22,7 +25,7 @@ namespace Hto3.SimpleSpecsDetector
         }
 
         /// <summary>
-        /// Get the model of the motherboard.
+        /// Get the motherboard model.
         /// </summary>
         /// <returns></returns>
         public static String GetModel()
