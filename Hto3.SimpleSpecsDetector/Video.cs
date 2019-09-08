@@ -33,23 +33,25 @@ namespace Hto3.SimpleSpecsDetector
         /// <returns></returns>
         public static Int64? GetVideoMemory()
         {
-            var key = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default);
-            var subkey = key.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000", false);
-            var sizeFromDriver = (Int64?)subkey?.GetValue("HardwareInformation.qwMemorySize");
-            
-            //if it finds the amount of RAM reported by the driver
-            if (sizeFromDriver.HasValue)
-                return sizeFromDriver.Value;
-            //otherwise, picks up through Windows (not so trustable)
-            else
+            using (var key = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default))
+            using (var subkey = key.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000", false))
             {
-                var wql = new ObjectQuery("SELECT AdapterRAM FROM Win32_VideoController");
-                using (var searcher = new ManagementObjectSearcher(wql))
+                var sizeFromDriver = (Int64?)subkey?.GetValue("HardwareInformation.qwMemorySize");
+
+                //if it finds the amount of RAM reported by the driver
+                if (sizeFromDriver.HasValue)
+                    return sizeFromDriver.Value;
+                //otherwise, picks up through Windows (not so trustable)
+                else
                 {
-                    var managementObjectCollection = searcher.Get();
-                    if (managementObjectCollection.Count == 0)
-                        return null;
-                    return Convert.ToInt64(managementObjectCollection.Cast<ManagementObject>().First()["AdapterRAM"] ?? 0);
+                    var wql = new ObjectQuery("SELECT AdapterRAM FROM Win32_VideoController");
+                    using (var searcher = new ManagementObjectSearcher(wql))
+                    {
+                        var managementObjectCollection = searcher.Get();
+                        if (managementObjectCollection.Count == 0)
+                            return null;
+                        return Convert.ToInt64(managementObjectCollection.Cast<ManagementObject>().First()["AdapterRAM"] ?? 0);
+                    }
                 }
             }
         }

@@ -46,6 +46,7 @@ Features
 ### Os
 - `GetWindowsVersionNumber` Get the correct Windows version following [this](https://docs.microsoft.com/en-us/windows/win32/sysinfo/operating-system-version) table.
 - `GetWindowsVersionName` Get the Windows version name.
+- `GetInstalledFrameworkVersion` Get the higher .NET Framework version installed on machine. This method can detect starting from 4.0.0 version.
 
 ### Processor
 - `GetProcessorName` Get the processor name.

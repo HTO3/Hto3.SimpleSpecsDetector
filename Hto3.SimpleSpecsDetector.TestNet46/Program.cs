@@ -13,6 +13,7 @@ namespace Hto3.SimpleSpecsDetector.TestNet46
             //Os
             Console.WriteLine("Os.GetWindowsVersion: {0}", Os.GetWindowsVersionNumber());
             Console.WriteLine("Os.GetWindowsVersionName: {0}", Os.GetWindowsVersionName());
+            Console.WriteLine("Os.GetInstalledFrameworkVersion: {0}", Os.GetInstalledFrameworkVersion());
 
             //Video
             Console.WriteLine("Video.GetDisplayAdapterName: {0}", Video.GetDisplayAdapterName());
