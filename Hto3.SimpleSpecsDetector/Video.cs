@@ -103,10 +103,18 @@ namespace Hto3.SimpleSpecsDetector
                 this.Width = width;
                 this.Height = height;
             }
-
+            /// <summary>
+            /// Width of the screen in pixels
+            /// </summary>
             public UInt32 Width { get; internal set; }
+            /// <summary>
+            /// Height of the screen in pixels.
+            /// </summary>
             public UInt32 Height { get; internal set; }
-
+            /// <summary>
+            /// Displays a sanitized representation of the screen size. 
+            /// </summary>
+            /// <returns></returns>
             public override string ToString()
             {
                 return $"{{Width={this.Width}, Height={this.Height}}}";

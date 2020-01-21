@@ -7,6 +7,9 @@ using System.Text;
 
 namespace Hto3.SimpleSpecsDetector
 {
+    /// <summary>
+    /// A storage device on the computer
+    /// </summary>
     public static class Storage
     {
         /// <summary>
@@ -45,7 +48,10 @@ namespace Hto3.SimpleSpecsDetector
             /// Size in bytes
             /// </summary>
             public UInt64 Size { get; internal set; }            
-
+            /// <summary>
+            /// Displays a sanitized representation of the disk 
+            /// </summary>
+            /// <returns></returns>
             public override string ToString()
             {
                 return $"{{Name={this.Name}, Size={this.Size}}}";
