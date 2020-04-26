@@ -35,6 +35,10 @@ Supported Windows Versions
 -   Windows XP
 -   ~**Future proof** 🐱‍👤
 
+Supported Linux Versions
+--------
+-   No Support 😢
+
 Supported .NET Versions
 --------
 -   .NET Framework 4.x
@@ -44,9 +48,9 @@ Features
 --------
 
 ### Os
-- `GetWindowsVersionNumber` Get the correct Windows version following [this](https://docs.microsoft.com/en-us/windows/win32/sysinfo/operating-system-version) table.
+- `GetWindowsVersionNumber` Get the Windows version number following [this](https://docs.microsoft.com/en-us/windows/win32/sysinfo/operating-system-version) table.
 - `GetWindowsVersionName` Get the Windows version name.
-- `GetInstalledFrameworkVersion` Get the higher .NET Framework version installed on machine. This method can detect starting from 4.0.0 version.
+- `GetInstalledFrameworkVersion` Get the higher .NET Framework version installed on machine. This method can detect starting from 4.0 version.
 
 ### Processor
 - `GetProcessorName` Get the processor name.
@@ -58,7 +62,7 @@ Features
 
 ### Memory
 - `GetFreeMemory` Number of bytes of physical memory currently unused and available.
-- `GetInstalledMemory` Get the amount of installed phisical memory in bytes.
+- `GetInstalledMemory` Get the amount of installed physical memory in bytes.
 - `GetVisibleMemory` The total amount of physical memory (in Bytes) available to the OperatingSystem. This value does not necessarily indicate the true amount of physical memory, but what is reported to the OperatingSystem as available to it.
 
 ### Motherboard

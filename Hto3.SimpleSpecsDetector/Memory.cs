@@ -25,7 +25,7 @@ namespace Hto3.SimpleSpecsDetector
         }
 
         /// <summary>
-        /// Get the amount of installed phisical memory in bytes.
+        /// Get the amount of installed physical memory in bytes.
         /// </summary>
         /// <returns></returns>
         public static UInt64 GetInstalledMemory()
