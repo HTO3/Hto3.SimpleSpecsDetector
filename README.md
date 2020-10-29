@@ -6,7 +6,7 @@ Hto3.SimpleSpecsDetector
 #### Nuget Package
 [![Hto3.SimpleSpecsDetector](https://img.shields.io/nuget/v/Hto3.SimpleSpecsDetector.svg)](https://www.nuget.org/packages/Hto3.SimpleSpecsDetector/)
 
-Fully managed .NET library to detect the specs of the hardware, available in .NET Framework or .NET Core flavors (.NET Standard 2.0). This library intends to keep direct and simple, don't expect to retrieve all geek info like HWiNFO, AIDA64 or Speccy provides.
+Fully managed .NET library to detect the specs of the hardware, available in .NET Framework or .NET Core flavors (.NET Standard). This library intends to keep direct and simple, don't expect to retrieve all geek info like HWiNFO, AIDA64 or Speccy provides.
 
 This library is ideal for obtaining simple information from PCs in Windows environment, perhaps for a troubleshooting or inventory, or simply to use in the log of your application.
 
@@ -33,7 +33,6 @@ Supported Windows Versions
 -   Windows Server 2003
 -   Windows XP 64-Bit Edition
 -   Windows XP
--   ~**Future proof** 🐱‍👤
 
 Supported Linux Versions
 --------
@@ -42,7 +41,7 @@ Supported Linux Versions
 Supported .NET Versions
 --------
 -   .NET Framework 4.x
--   .NET Core 2.x (through .NET Standard 2.0)
+-   .NET Core 2.x and 3.x (through .NET Standard)
 
 Features
 --------
@@ -51,6 +50,7 @@ Features
 - `GetWindowsVersionNumber` Get the Windows version number following [this](https://docs.microsoft.com/en-us/windows/win32/sysinfo/operating-system-version) table.
 - `GetWindowsVersionName` Get the Windows version name.
 - `GetInstalledFrameworkVersion` Get the higher .NET Framework version installed on machine. This method can detect starting from 4.0 version.
+- `GetSystemUpTime`Get system up time.
 
 ### Processor
 - `GetProcessorName` Get the processor name.
@@ -68,6 +68,16 @@ Features
 ### Motherboard
 - `GetVendorName` Get the vendor name.
 - `GetModel` Get the motherboard model.
+- `GetBIOSVersion` Get the BIOS version.
 
 ### Storage
 - `GetDisks` Get all connected hard disks. The information available is the hard disk name and size.
+
+### Sound
+- `GetSoundCards` Get all connected sound cards.
+
+### Printer
+- `GetPrinters` Get all installed printers.
+
+### Network
+- `GetNetworkCards` Get all connected network cards. 
