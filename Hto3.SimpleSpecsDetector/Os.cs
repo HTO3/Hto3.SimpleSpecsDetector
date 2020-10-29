@@ -91,5 +91,13 @@ namespace Hto3.SimpleSpecsDetector
                 return null;
             }
         }
+        /// <summary>
+        /// Get system up time.
+        /// </summary>
+        /// <returns></returns>
+        public static TimeSpan GetSystemUpTime()
+        {
+            return TimeSpan.FromMilliseconds(Environment.TickCount);
+        }
     }
 }

@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using Hto3.SimpleSpecsDetector;
 
-namespace Hto3.SimpleSpecsDetector.TestNet40
+namespace Hto3.SimpleSpecsDetector.TestCore21
 {
     class Program
     {

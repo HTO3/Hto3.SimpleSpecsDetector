@@ -36,5 +36,18 @@ namespace Hto3.SimpleSpecsDetector
                 return (String)searcher.Get().Cast<ManagementObject>().First()["Model"];
             }
         }
+
+        /// <summary>
+        /// Get the BIOS version.
+        /// </summary>
+        /// <returns></returns>
+        public static String GetBIOSVersion()
+        {
+            var wql = new ObjectQuery("SELECT SMBIOSBIOSVersion FROM Win32_BIOS");
+            using (var searcher = new ManagementObjectSearcher(wql))
+            {
+                return (String)searcher.Get().Cast<ManagementObject>().First()["SMBIOSBIOSVersion"];
+            }
+        }
     }
 }
