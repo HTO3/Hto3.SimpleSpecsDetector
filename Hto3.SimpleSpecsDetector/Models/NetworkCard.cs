@@ -5,7 +5,7 @@ using System.Text;
 namespace Hto3.SimpleSpecsDetector.Models
 {
     /// <summary>
-    /// Represent a network card
+    /// Represent a network card.
     /// </summary>
     public struct NetworkCard
     {
@@ -38,7 +38,10 @@ namespace Hto3.SimpleSpecsDetector.Models
         /// MAC Address
         /// </summary>
         public String MACAddress { get; internal set; }
-
+        /// <summary>
+        /// Displays a sanitized representation of the network card. 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return $"{{Name={this.Name}, Manufacturer={this.Manufacturer}, MACAddress={this.MACAddress}}}";

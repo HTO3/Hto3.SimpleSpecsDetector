@@ -5,7 +5,7 @@ using System.Text;
 namespace Hto3.SimpleSpecsDetector.Models
 {
     /// <summary>
-    /// Represents a hard disk
+    /// Represents a hard disk.
     /// </summary>
     public struct Disk
     {
@@ -28,7 +28,7 @@ namespace Hto3.SimpleSpecsDetector.Models
         /// </summary>
         public String DeviceID { get; internal set; }
         /// <summary>
-        /// Displays a sanitized representation of the disk 
+        /// Displays a sanitized representation of the disk.
         /// </summary>
         /// <returns></returns>
         public override string ToString()

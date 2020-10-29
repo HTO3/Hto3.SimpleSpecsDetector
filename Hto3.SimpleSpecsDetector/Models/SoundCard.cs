@@ -5,7 +5,7 @@ using System.Text;
 namespace Hto3.SimpleSpecsDetector.Models
 {
     /// <summary>
-    /// Represents a sound card
+    /// Represents a sound card.
     /// </summary>
     public struct SoundCard
     {
@@ -27,7 +27,10 @@ namespace Hto3.SimpleSpecsDetector.Models
         /// Unique identifier of the device.
         /// </summary>
         public String DeviceID { get; internal set; }
-
+        /// <summary>
+        /// Displays a sanitized representation of the sound card. 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return $"{{Name={this.Name}, Manufacturer={this.Manufacturer}}}";
