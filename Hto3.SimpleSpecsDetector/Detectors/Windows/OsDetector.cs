@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Hto3.SimpleSpecsDetector.Contracts;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -6,18 +7,13 @@ using System.Linq;
 using System.Management;
 using System.Text;
 
-namespace Hto3.SimpleSpecsDetector
+#pragma warning disable CA1416
+
+namespace Hto3.SimpleSpecsDetector.Detectors.Windows
 {
-    /// <summary>
-    /// Information about the OS
-    /// </summary>
-    public static class Os
+    internal class OsDetector : IOsDetector
     {
-        /// <summary>
-        /// Get the correct Windows version following the Microsoft table (https://docs.microsoft.com/en-us/windows/win32/sysinfo/operating-system-version).
-        /// </summary>
-        /// <returns></returns>
-        public static Decimal GetWindowsVersionNumber()
+        public Decimal GetOsVersionNumber()
         {
             using (var key = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default))
             using (var subkey = key.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion", false))
@@ -36,11 +32,7 @@ namespace Hto3.SimpleSpecsDetector
             }
         }
 
-        /// <summary>
-        /// Get the Windows version name.
-        /// </summary>
-        /// <returns></returns>
-        public static String GetWindowsVersionName()
+        public String GetOsVersionName()
         {
             var wql = new ObjectQuery("SELECT Caption FROM Win32_OperatingSystem");
             using (var searcher = new ManagementObjectSearcher(wql))
@@ -48,11 +40,8 @@ namespace Hto3.SimpleSpecsDetector
                 return (String)searcher.Get().Cast<ManagementObject>().First()["Caption"];
             }
         }
-        /// <summary>
-        /// Get the higher .NET Framework version installed on machine. This method can detect starting from 4.0.0 version.
-        /// </summary>
-        /// <returns></returns>
-        public static String GetInstalledFrameworkVersion()
+
+        public String GetInstalledFrameworkVersion()
         {
             using (var key = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default))
             using (var subkey = key.OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full", false) ?? key.OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Client", false))
@@ -91,11 +80,8 @@ namespace Hto3.SimpleSpecsDetector
                 return null;
             }
         }
-        /// <summary>
-        /// Get system up time.
-        /// </summary>
-        /// <returns></returns>
-        public static TimeSpan GetSystemUpTime()
+
+        public TimeSpan GetSystemUpTime()
         {
             return TimeSpan.FromMilliseconds(Environment.TickCount);
         }

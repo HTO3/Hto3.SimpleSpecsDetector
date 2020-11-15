@@ -1,21 +1,18 @@
-﻿using System;
+﻿using Hto3.SimpleSpecsDetector.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management;
 using System.Text;
 
-namespace Hto3.SimpleSpecsDetector
+//Disable warning on OS specific classes
+#pragma warning disable CA1416
+
+namespace Hto3.SimpleSpecsDetector.Detectors.Windows
 {
-    /// <summary>
-    /// Information about the phisical memory
-    /// </summary>
-    public static class Memory
-    {
-        /// <summary>
-        /// Number of bytes of physical memory currently unused and available.
-        /// </summary>
-        /// <returns></returns>
-        public static UInt64 GetFreeMemory()
+    internal class MemoryDetector : IMemoryDetector
+    {        
+        public UInt64 GetFreeMemory()
         {
             var wql = new ObjectQuery("SELECT FreePhysicalMemory FROM Win32_OperatingSystem");
             using (var searcher = new ManagementObjectSearcher(wql))
@@ -23,12 +20,8 @@ namespace Hto3.SimpleSpecsDetector
                 return ((UInt64)searcher.Get().Cast<ManagementObject>().First()["FreePhysicalMemory"]) * 1000;
             }
         }
-
-        /// <summary>
-        /// Get the amount of installed physical memory in bytes.
-        /// </summary>
-        /// <returns></returns>
-        public static UInt64 GetInstalledMemory()
+        
+        public UInt64 GetInstalledMemory()
         {
             var wql = new ObjectQuery("SELECT Capacity FROM Win32_PhysicalMemory");
             using (var searcher = new ManagementObjectSearcher(wql))
@@ -36,14 +29,8 @@ namespace Hto3.SimpleSpecsDetector
                 return (UInt64)searcher.Get().Cast<ManagementObject>().Select(m => Convert.ToInt64(m["Capacity"])).Sum();
             }
         }
-
-        /// <summary>
-        /// The total amount of physical memory (in Bytes) available to the OperatingSystem.
-        /// This value does not necessarily indicate the true amount of physical memory, but
-        /// what is reported to the OperatingSystem as available to it.
-        /// </summary>
-        /// <returns></returns>
-        public static UInt64 GetVisibleMemory()
+        
+        public UInt64 GetVisibleMemory()
         {
             var wql = new ObjectQuery("SELECT TotalVisibleMemorySize FROM Win32_OperatingSystem");
             using (var searcher = new ManagementObjectSearcher(wql))

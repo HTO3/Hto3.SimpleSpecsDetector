@@ -1,21 +1,18 @@
-﻿using Hto3.SimpleSpecsDetector.Models;
+﻿using Hto3.SimpleSpecsDetector.Contracts;
+using Hto3.SimpleSpecsDetector.Models;
 using System;
 using System.Collections.Generic;
 using System.Management;
 using System.Text;
 
-namespace Hto3.SimpleSpecsDetector
+//Disable warning on OS specific classes
+#pragma warning disable CA1416
+
+namespace Hto3.SimpleSpecsDetector.Detectors.Windows
 {
-    /// <summary>
-    /// Information about the sound cards.
-    /// </summary>
-    public static class Sound
+    internal class SoundDetector : ISoundDetector
     {
-        /// <summary>
-        /// Get all connected sound cards.
-        /// </summary>
-        /// <returns></returns>
-        public static IEnumerable<SoundCard> GetSoundCards()
+        public IEnumerable<SoundCard> GetSoundCards()
         {
             var wql = new ObjectQuery("SELECT Caption, Manufacturer, PNPDeviceID FROM Win32_SoundDevice");
             using (var searcher = new ManagementObjectSearcher(wql))

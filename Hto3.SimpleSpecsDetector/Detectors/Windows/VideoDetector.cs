@@ -1,22 +1,20 @@
-﻿using Microsoft.Win32;
+﻿using Hto3.SimpleSpecsDetector.Contracts;
+using Hto3.SimpleSpecsDetector.Models;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management;
 using System.Text;
 
-namespace Hto3.SimpleSpecsDetector
+//Disable warning on OS specific classes
+#pragma warning disable CA1416
+
+namespace Hto3.SimpleSpecsDetector.Detectors.Windows
 {
-    /// <summary>
-    /// Information about the display adapter.
-    /// </summary>
-    public class Video
+    internal class VideoDetector : IVideoDetector
     {
-        /// <summary>
-        /// Get the display adapter name. Example NVIDIA GForce GTX 1080.
-        /// </summary>
-        /// <returns></returns>
-        public static String GetDisplayAdapterName()
+        public String GetDisplayAdapterName()
         {
             var wql = new ObjectQuery("SELECT Name FROM Win32_VideoController");
             using (var searcher = new ManagementObjectSearcher(wql))
@@ -27,11 +25,8 @@ namespace Hto3.SimpleSpecsDetector
                 return (String)managementObjectCollection.Cast<ManagementObject>().First()["Name"];
             }
         }
-        /// <summary>
-        /// Get amount of memory of the display adapter. Result in bytes. 
-        /// </summary>
-        /// <returns></returns>
-        public static Int64? GetVideoMemory()
+        
+        public Int64? GetVideoMemory()
         {
             using (var key = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default))
             using (var subkey = key.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000", false))
@@ -55,12 +50,8 @@ namespace Hto3.SimpleSpecsDetector
                 }
             }
         }
-
-        /// <summary>
-        /// Get the resolution in pixels of the current display in use (focused).
-        /// </summary>
-        /// <returns></returns>
-        public static USize GetCurrentVideoResolution()
+        
+        public USize? GetCurrentVideoResolution()
         {
             //first attempt
             var wql1 = new ObjectQuery("SELECT CurrentHorizontalResolution, CurrentVerticalResolution FROM Win32_VideoController");
@@ -92,33 +83,6 @@ namespace Hto3.SimpleSpecsDetector
 
                 return new USize(width, height);
             }
-        }
-        /// <summary>
-        /// Represents a screen size.
-        /// </summary>
-        public struct USize
-        {
-            internal USize(UInt32 width, UInt32 height)
-            {
-                this.Width = width;
-                this.Height = height;
-            }
-            /// <summary>
-            /// Width of the screen in pixels
-            /// </summary>
-            public UInt32 Width { get; internal set; }
-            /// <summary>
-            /// Height of the screen in pixels.
-            /// </summary>
-            public UInt32 Height { get; internal set; }
-            /// <summary>
-            /// Displays a sanitized representation of the screen size. 
-            /// </summary>
-            /// <returns></returns>
-            public override string ToString()
-            {
-                return $"{{Width={this.Width}, Height={this.Height}}}";
-            }
-        }
+        }        
     }
 }

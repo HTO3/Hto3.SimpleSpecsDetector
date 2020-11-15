@@ -1,22 +1,19 @@
-﻿using Hto3.SimpleSpecsDetector.Models;
+﻿using Hto3.SimpleSpecsDetector.Contracts;
+using Hto3.SimpleSpecsDetector.Models;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Management;
 using System.Text;
 
-namespace Hto3.SimpleSpecsDetector
+//Disable warning on OS specific classes
+#pragma warning disable CA1416
+
+namespace Hto3.SimpleSpecsDetector.Detectors.Windows
 {
-    /// <summary>
-    /// Information about the network cards.
-    /// </summary>
-    public static class Network
+    internal class NetworkDetector : INetworkDetector
     {
-        /// <summary>
-        /// Get all connected network cards.
-        /// </summary>
-        /// <returns></returns>
-        public static IEnumerable<NetworkCard> GetNetworkCards()
+        public IEnumerable<NetworkCard> GetNetworkCards()
         {
             var wqlText = "SELECT Name, PNPDeviceID, NetEnabled, Manufacturer, MACAddress FROM Win32_NetworkAdapter WHERE ";
 

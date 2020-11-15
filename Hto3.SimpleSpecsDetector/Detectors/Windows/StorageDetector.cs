@@ -1,4 +1,5 @@
-﻿using Hto3.SimpleSpecsDetector.Models;
+﻿using Hto3.SimpleSpecsDetector.Contracts;
+using Hto3.SimpleSpecsDetector.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -6,18 +7,14 @@ using System.Linq;
 using System.Management;
 using System.Text;
 
-namespace Hto3.SimpleSpecsDetector
+//Disable warning on OS specific classes
+#pragma warning disable CA1416
+
+namespace Hto3.SimpleSpecsDetector.Detectors.Windows
 {
-    /// <summary>
-    /// A storage device on the computer
-    /// </summary>
-    public static class Storage
+    internal class StorageDetector : IStorageDetector
     {
-        /// <summary>
-        /// Get all connected hard disks. The information available is the hard disk name and size (in Bytes).
-        /// </summary>
-        /// <returns></returns>
-        public static IEnumerable<Disk> GetDisks()
+        public IEnumerable<Disk> GetDisks()
         {
             var wql = new ObjectQuery("SELECT Caption, Size, PNPDeviceID FROM Win32_DiskDrive");
             using (var searcher = new ManagementObjectSearcher(wql))

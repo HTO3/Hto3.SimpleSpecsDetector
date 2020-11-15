@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Hto3.SimpleSpecsDetector.TestCore31": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
