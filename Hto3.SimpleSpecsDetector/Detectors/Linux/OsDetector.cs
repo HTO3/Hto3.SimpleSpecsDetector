@@ -42,7 +42,7 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
                 statProcess.WaitForExit();
             }
 
-            var match = Regex.Match(stdout.ToString(), @"\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}\.\d+\s\+\d{4}");
+            var match = Regex.Match(stdout.ToString(), @"\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}\.\d+\s(\+|-)\d{4}");
             
             return DateTime.Now - DateTime.Parse(match.Value);
         }
