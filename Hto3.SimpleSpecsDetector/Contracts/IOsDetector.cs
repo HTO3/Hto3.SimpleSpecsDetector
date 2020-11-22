@@ -14,7 +14,7 @@ namespace Hto3.SimpleSpecsDetector.Contracts
         /// Linux:
         /// </summary>
         /// <returns></returns>
-        Decimal GetOsVersionNumber();
+        String GetOsVersionNumber();
         /// <summary>
         /// Get the OS version name.
         /// </summary>
@@ -30,5 +30,10 @@ namespace Hto3.SimpleSpecsDetector.Contracts
         /// </summary>
         /// <returns></returns>
         TimeSpan GetSystemUpTime();
+        /// <summary>
+        /// Get the OS kernel version.
+        /// </summary>
+        /// <returns></returns>
+        String GetKernelVersion();
     }
 }

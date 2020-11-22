@@ -1,9 +1,7 @@
 ﻿using Hto3.SimpleSpecsDetector.Contracts;
-using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -12,14 +10,20 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
 {
     internal class OsDetector : IOsDetector
     {        
-        public Decimal GetOsVersionNumber()
+        public String GetOsVersionNumber()
         {
-            return 0;
+            var osrelease = File.ReadAllText("/etc/os-release");
+            var osreleaseMatch = Regex.Match(osrelease, @"VERSION_ID=""(?<value>.+)""");
+
+            return osreleaseMatch.Groups["value"].Value;
         }
         
         public String GetOsVersionName()
         {
-            return null;
+            var osrelease = File.ReadAllText("/etc/os-release");
+            var osreleaseMatch = Regex.Match(osrelease, @"PRETTY_NAME=""(?<value>.+)""");
+
+            return osreleaseMatch.Groups["value"].Value;
         }
         
         public String GetInstalledFrameworkVersion()
@@ -45,6 +49,23 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
             var match = Regex.Match(stdout.ToString(), @"\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}\.\d+\s(\+|-)\d{4}");
             
             return DateTime.Now - DateTime.Parse(match.Value);
+        }
+
+        public String GetKernelVersion()
+        {
+            var stdout = new StringBuilder();
+            var processStartInfo = new ProcessStartInfo("uname", "-r");
+            processStartInfo.RedirectStandardOutput = true;
+
+            using (var statProcess = Process.Start(processStartInfo))
+            {
+                var statProcessOutputDataReceived = new DataReceivedEventHandler((sender, e) => stdout.AppendLine(e.Data));
+                statProcess.OutputDataReceived += statProcessOutputDataReceived;
+                statProcess.BeginOutputReadLine();
+                statProcess.WaitForExit();
+            }
+
+            return stdout.ToString().Trim();
         }
     }
 }

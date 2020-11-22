@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Management;
@@ -13,22 +14,20 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Windows
 {
     internal class OsDetector : IOsDetector
     {
-        public Decimal GetOsVersionNumber()
+        public String GetOsVersionNumber()
         {
             using (var key = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default))
             using (var subkey = key.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion", false))
             {
-                var versionCulture = new CultureInfo("en-US");
-
                 if (subkey.GetValue("CurrentMajorVersionNumber") != null && subkey.GetValue("CurrentMinorVersionNumber") != null)
                 {
                     var major = subkey.GetValue("CurrentMajorVersionNumber").ToString();
                     var minor = subkey.GetValue("CurrentMinorVersionNumber").ToString();
 
-                    return Decimal.Parse($"{major}.{minor}", versionCulture);
+                    return $"{major}.{minor}";
                 }
 
-                return Decimal.Parse((String)subkey.GetValue("CurrentVersion"), versionCulture);
+                return (String)subkey.GetValue("CurrentVersion");
             }
         }
 
@@ -84,6 +83,12 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Windows
         public TimeSpan GetSystemUpTime()
         {
             return TimeSpan.FromMilliseconds(Environment.TickCount);
+        }
+
+        public String GetKernelVersion()
+        {
+            var kernelVersionInfo = FileVersionInfo.GetVersionInfo(@"C:\Windows\System32\ntoskrnl.exe");
+            return kernelVersionInfo.ProductVersion;
         }
     }
 }

@@ -7,10 +7,11 @@ namespace Hto3.SimpleSpecsDetector.TestNet50
         static void Main(string[] args)
         {
             //Os
-            Console.WriteLine("Os.GetWindowsVersion: {0}", HardwareDetector.OsDetector.GetOsVersionNumber());
-            Console.WriteLine("Os.GetWindowsVersionName: {0}", HardwareDetector.OsDetector.GetOsVersionName());
+            Console.WriteLine("Os.GetOsVersionNumber: {0}", HardwareDetector.OsDetector.GetOsVersionNumber());
+            Console.WriteLine("Os.GetOsVersionName: {0}", HardwareDetector.OsDetector.GetOsVersionName());
             Console.WriteLine("Os.GetInstalledFrameworkVersion: {0}", HardwareDetector.OsDetector.GetInstalledFrameworkVersion());
             Console.WriteLine("Os.GetSystemUpTime: {0}", HardwareDetector.OsDetector.GetSystemUpTime());
+            Console.WriteLine("Os.GetKernelVersion: {0}", HardwareDetector.OsDetector.GetKernelVersion());
 
             //Video
             Console.WriteLine("Video.GetDisplayAdapterName: {0}", HardwareDetector.VideoDetector.GetDisplayAdapterName());
