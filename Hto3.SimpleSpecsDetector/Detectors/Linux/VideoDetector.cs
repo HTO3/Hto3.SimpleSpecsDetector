@@ -34,7 +34,7 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
             if (!match.Success)
                 return null;
 
-            var vgaCardName = match.Value;
+            var vgaCardName = match.Groups["value"].Value;
 
             return vgaCardName;
         }
@@ -64,6 +64,7 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
             stdout.Clear();
 
             processStartInfo = new ProcessStartInfo("lspci", $"-v -s {match.Groups["value"].Value}");
+            processStartInfo.RedirectStandardOutput = true;
 
             using (var statProcess = Process.Start(processStartInfo))
             {
