@@ -17,7 +17,7 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
 
             var vendorName = File.ReadAllText(PATH);
 
-            return vendorName;
+            return vendorName.Trim();
         }
 
         public String GetModel()
@@ -28,7 +28,7 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
 
             var vendorName = File.ReadAllText(PATH);
 
-            return vendorName;
+            return vendorName.Trim();
         }
 
         public String GetBIOSVersion()
@@ -39,7 +39,7 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
 
             var vendorName = File.ReadAllText(PATH);
 
-            return vendorName;
+            return vendorName.Trim();
         }
     }
 }
