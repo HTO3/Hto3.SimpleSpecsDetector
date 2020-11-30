@@ -45,28 +45,29 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
                 return null;
 
             var stdout = new StringBuilder();
-            var processStartInfo = new ProcessStartInfo("lspci");
-            processStartInfo.RedirectStandardOutput = true;
 
-            using (var statProcess = Process.Start(processStartInfo))
+            var lspciProcessStartInfo = new ProcessStartInfo("lspci");
+            lspciProcessStartInfo.RedirectStandardOutput = true;
+
+            using (var statProcess = Process.Start(lspciProcessStartInfo))
             {
                 var statProcessOutputDataReceived = new DataReceivedEventHandler((sender, e) => stdout.AppendLine(e.Data));
                 statProcess.OutputDataReceived += statProcessOutputDataReceived;
                 statProcess.BeginOutputReadLine();
                 statProcess.WaitForExit();
             }
+            
+            var pciMatch = Regex.Match(stdout.ToString(), @"(?<value>\d{2}:\d{2}\.\d)\sVGA compatible controller:");
 
-            var match = Regex.Match(stdout.ToString(), @"(?<value>\d{2}:\d{2}\.\d)\sVGA compatible controller:");
-
-            if (!match.Success)
+            if (!pciMatch.Success)
                 return null;
 
             stdout.Clear();
 
-            processStartInfo = new ProcessStartInfo("lspci", $"-v -s {match.Groups["value"].Value}");
-            processStartInfo.RedirectStandardOutput = true;
+            lspciProcessStartInfo = new ProcessStartInfo("lspci", $"-v -s {pciMatch.Groups["value"].Value}");
+            lspciProcessStartInfo.RedirectStandardOutput = true;            
 
-            using (var statProcess = Process.Start(processStartInfo))
+            using (var statProcess = Process.Start(lspciProcessStartInfo))
             {
                 var statProcessOutputDataReceived = new DataReceivedEventHandler((sender, e) => stdout.AppendLine(e.Data));
                 statProcess.OutputDataReceived += statProcessOutputDataReceived;
@@ -74,13 +75,25 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
                 statProcess.WaitForExit();
             }
 
-            match = Regex.Match(stdout.ToString(), @"Memory\sat\s[^\[]+\[size=(?<size>\d+)(?<unit>\w)\]");
+            var memoryMatches = Regex.Matches(stdout.ToString(), @"Memory\sat\s[^\[]+\[size=(?<size>\d+)(?<unit>\w)\]");
 
-            if (!match.Success)
+            if (memoryMatches.Count == 0)
                 return null;
 
-            var unit = match.Groups["unit"].Value;
-            var size = Int32.Parse(match.Groups["size"].Value);
+            var memoryMatch =
+                memoryMatches
+                    .Cast<Match>()
+                    .FirstOrDefault(mm => mm.Value.Contains(" prefetchable"))
+                ??
+                memoryMatches
+                    .Cast<Match>()
+                    .FirstOrDefault(mm => mm.Value.Contains(" non-prefetchable"));
+
+            if (memoryMatch == null)
+                return null;
+
+            var unit = memoryMatch.Groups["unit"].Value;
+            var size = Int32.Parse(memoryMatch.Groups["size"].Value);
 
             switch (unit)
             {

@@ -13,16 +13,31 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
     {        
         public IEnumerable<NetworkCard> GetNetworkCards()
         {
+            if (Utils.IsInsideContainer)
+                return GetNetworkCardsContainerMode();
+            else
+                return GetNetworkCardsPhysicalMode();
+        }
+
+        private IEnumerable<NetworkCard> GetNetworkCardsContainerMode()
+        {
             var networkCards = Directory.EnumerateDirectories("/sys/devices/virtual/net", "eth*");
 
             foreach (var networkCard in networkCards)
             {
                 yield return new NetworkCard()
                 {
-                    MACAddress = File.ReadAllText(Path.Combine(networkCard, "address")),
-                    DeviceID = Path.GetDirectoryName(networkCard)                    
+                    MACAddress = File.ReadAllText(Path.Combine(networkCard, "address")).Trim(),
+                    DeviceID = File.ReadAllText(Path.Combine(networkCard, "dev_id")).Trim(),
+                    NetEnabled = File.ReadAllText(Path.Combine(networkCard, "operstate")).Trim() == "up",
+                    Name = Path.GetFileName(networkCard)
                 };
             }
+        }
+
+        private IEnumerable<NetworkCard> GetNetworkCardsPhysicalMode()
+        {
+            return Enumerable.Empty<NetworkCard>();
         }
     }
 }
