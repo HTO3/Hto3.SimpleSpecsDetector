@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 
 namespace Hto3.SimpleSpecsDetector.Detectors.Linux
 {    
@@ -37,7 +38,40 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
 
         private IEnumerable<NetworkCard> GetNetworkCardsPhysicalMode()
         {
-            return Enumerable.Empty<NetworkCard>();
+            if (!File.Exists("/usr/bin/lshw"))
+                yield break;
+
+            var stdout = new StringBuilder();
+            var processStartInfo = new ProcessStartInfo("lshw", "-xml");
+            processStartInfo.RedirectStandardOutput = true;
+
+            using (var statProcess = Process.Start(processStartInfo))
+            {
+                var statProcessOutputDataReceived = new DataReceivedEventHandler((sender, e) => stdout.AppendLine(e.Data));
+                statProcess.OutputDataReceived += statProcessOutputDataReceived;
+                statProcess.BeginOutputReadLine();
+                statProcess.WaitForExit();
+            }
+
+            var xdocument = XDocument.Parse(stdout.ToString());
+
+            var networkCards =
+                xdocument.Root
+                    .Element("node")
+                        .Descendants("node")
+                        .Where(n => n.Attribute("class").Value == "network");
+
+            foreach (var networkCard in networkCards)
+            {
+                yield return new NetworkCard()
+                {
+                    MACAddress = networkCard.Element("serial")?.Value,
+                    DeviceID = networkCard.Element("physid")?.Value,
+                    NetEnabled = networkCard.Element("link")?.Value == "yes",
+                    Name = networkCard.Element("logicalname")?.Value,
+                    Manufacturer = networkCard.Element("vendor")?.Value
+                };
+            }
         }
     }
 }
