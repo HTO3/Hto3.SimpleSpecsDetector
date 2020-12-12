@@ -20,6 +20,7 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
             var stdout = new StringBuilder();
             var processStartInfo = new ProcessStartInfo("lspci");
             processStartInfo.RedirectStandardOutput = true;
+            processStartInfo.RedirectStandardError = true;
 
             using (var statProcess = Process.Start(processStartInfo))
             {
@@ -48,6 +49,7 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
 
             var lspciProcessStartInfo = new ProcessStartInfo("lspci");
             lspciProcessStartInfo.RedirectStandardOutput = true;
+            lspciProcessStartInfo.RedirectStandardError = true;
 
             using (var statProcess = Process.Start(lspciProcessStartInfo))
             {
@@ -65,7 +67,8 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
             stdout.Clear();
 
             lspciProcessStartInfo = new ProcessStartInfo("lspci", $"-v -s {pciMatch.Groups["value"].Value}");
-            lspciProcessStartInfo.RedirectStandardOutput = true;            
+            lspciProcessStartInfo.RedirectStandardOutput = true;
+            lspciProcessStartInfo.RedirectStandardError = true;
 
             using (var statProcess = Process.Start(lspciProcessStartInfo))
             {

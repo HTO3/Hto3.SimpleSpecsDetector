@@ -44,6 +44,7 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
             var stdout = new StringBuilder();
             var processStartInfo = new ProcessStartInfo("lshw", "-xml");
             processStartInfo.RedirectStandardOutput = true;
+            processStartInfo.RedirectStandardError = true;
 
             using (var statProcess = Process.Start(processStartInfo))
             {

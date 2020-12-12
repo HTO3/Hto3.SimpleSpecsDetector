@@ -37,6 +37,7 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
             var stdout = new StringBuilder();
             var processStartInfo = new ProcessStartInfo("stat", "/proc/1/");
             processStartInfo.RedirectStandardOutput = true;
+            processStartInfo.RedirectStandardError = true;
 
             using (var statProcess = Process.Start(processStartInfo))
             {                
@@ -56,6 +57,7 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
             var stdout = new StringBuilder();
             var processStartInfo = new ProcessStartInfo("uname", "-r");
             processStartInfo.RedirectStandardOutput = true;
+            processStartInfo.RedirectStandardError = true;
 
             using (var statProcess = Process.Start(processStartInfo))
             {
