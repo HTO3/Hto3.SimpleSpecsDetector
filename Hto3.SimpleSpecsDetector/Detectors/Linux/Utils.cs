@@ -26,20 +26,27 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
 
         internal static String RunCommand(String command, String args = null)
         {
-            var stdout = new StringBuilder();
-            var processStartInfo = new ProcessStartInfo(command, args);
-            processStartInfo.RedirectStandardOutput = true;
-            processStartInfo.RedirectStandardError = true;
-
-            using (var statProcess = Process.Start(processStartInfo))
+            try
             {
-                var statProcessOutputDataReceived = new DataReceivedEventHandler((sender, e) => stdout.AppendLine(e.Data));
-                statProcess.OutputDataReceived += statProcessOutputDataReceived;
-                statProcess.BeginOutputReadLine();
-                statProcess.WaitForExit();
-            }
+                var stdout = new StringBuilder();
+                var processStartInfo = new ProcessStartInfo(command, args);
+                processStartInfo.RedirectStandardOutput = true;
+                processStartInfo.RedirectStandardError = true;
 
-            return stdout.ToString();
+                using (var statProcess = Process.Start(processStartInfo))
+                {
+                    var statProcessOutputDataReceived = new DataReceivedEventHandler((sender, e) => stdout.AppendLine(e.Data));
+                    statProcess.OutputDataReceived += statProcessOutputDataReceived;
+                    statProcess.BeginOutputReadLine();
+                    statProcess.WaitForExit();
+                }
+
+                return stdout.ToString();
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }            
         }
     }
 }
