@@ -13,9 +13,9 @@
     <PackageTags>Hardware info detector information environment monitor spec specification</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.0.7</Version>
-    <FileVersion>1.0.7.0</FileVersion>
-    <AssemblyVersion>1.0.7.0</AssemblyVersion>
+    <Version>1.2.0</Version>
+    <FileVersion>1.2.0.0</FileVersion>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>nuget-logo.png</PackageIcon>
   </PropertyGroup>
