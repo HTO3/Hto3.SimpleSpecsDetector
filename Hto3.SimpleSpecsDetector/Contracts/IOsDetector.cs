@@ -11,7 +11,7 @@ namespace Hto3.SimpleSpecsDetector.Contracts
     {
         /// <summary>
         /// Windows: Get the correct Windows version following the Microsoft table (https://docs.microsoft.com/en-us/windows/win32/sysinfo/operating-system-version).
-        /// Linux:
+        /// Linux: Get the VERSION_ID value.
         /// </summary>
         /// <returns></returns>
         String GetOsVersionNumber();

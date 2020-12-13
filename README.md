@@ -8,7 +8,7 @@ Hto3.SimpleSpecsDetector
 
 Fully managed .NET library to detect the specs of the hardware, available in .NET Framework or .NET Core flavors (.NET Standard). This library intends to keep direct and simple, don't expect to retrieve all geek info like HWiNFO, AIDA64 or Speccy provides.
 
-This library is ideal for obtaining simple information from PCs in Windows environment, perhaps for a troubleshooting or inventory, or simply to use in the log of your application.
+This library is ideal for obtaining simple information from Desktops and Servers, perhaps for a troubleshooting or inventory, or simply to use in the log of your application.
 
 ##### Example
 
@@ -48,8 +48,9 @@ Features
 --------
 
 ### Os
-- `GetWindowsVersionNumber` Get the Windows version number following [this](https://docs.microsoft.com/en-us/windows/win32/sysinfo/operating-system-version) table.
-- `GetWindowsVersionName` Get the Windows version name.
+- `GetOsVersionNumber` Windows: Get the correct Windows version following the Microsoft table (https://docs.microsoft.com/en-us/windows/win32/sysinfo/operating-system-version).
+   Linux: Get the VERSION_ID value.
+- `GetOsVersionName` Get the OS version name.
 - `GetInstalledFrameworkVersion` Get the higher .NET Framework version installed on machine. This method can detect starting from 4.0 version.
 - `GetSystemUpTime`Get system up time.
 
@@ -82,3 +83,55 @@ Features
 
 ### Network
 - `GetNetworkCards` Get all connected network cards. 
+
+Sample App
+----------
+
+```C#
+class Program
+{
+    static void Main(string[] args)
+    {
+        //Os
+        Console.WriteLine("Os.GetOsVersionNumber: {0}", HardwareDetector.OsDetector.GetOsVersionNumber());
+        Console.WriteLine("Os.GetOsVersionName: {0}", HardwareDetector.OsDetector.GetOsVersionName());
+        Console.WriteLine("Os.GetInstalledFrameworkVersion: {0}", HardwareDetector.OsDetector.GetInstalledFrameworkVersion());
+        Console.WriteLine("Os.GetSystemUpTime: {0}", HardwareDetector.OsDetector.GetSystemUpTime());
+        Console.WriteLine("Os.GetKernelVersion: {0}", HardwareDetector.OsDetector.GetKernelVersion());
+
+        //Video
+        Console.WriteLine("Video.GetDisplayAdapterName: {0}", HardwareDetector.VideoDetector.GetDisplayAdapterName());
+        Console.WriteLine("Video.GetVideoMemory: {0} bytes", HardwareDetector.VideoDetector.GetVideoMemory());
+        Console.WriteLine("Video.GetCurrentVideoResolution: {0}", HardwareDetector.VideoDetector.GetCurrentVideoResolution());
+
+        //Processor
+        Console.WriteLine("Processor.GetProcessorName: {0}", HardwareDetector.ProcessorDetector.GetProcessorName());
+
+        //Memory
+        Console.WriteLine("Memory.GetFreeMemory: {0} bytes", HardwareDetector.MemoryDetector.GetFreeMemory());
+        Console.WriteLine("Memory.GetVisibleMemory: {0} bytes", HardwareDetector.MemoryDetector.GetVisibleMemory());
+        Console.WriteLine("Memory.GetInstalledMemory: {0} bytes", HardwareDetector.MemoryDetector.GetInstalledMemory());
+
+        //Motherboard
+        Console.WriteLine("Motherboard.GetModel: {0}", HardwareDetector.MotherboardDetector.GetModel());
+        Console.WriteLine("Motherboard.GetVendorName: {0}", HardwareDetector.MotherboardDetector.GetVendorName());
+        Console.WriteLine("Motherboard.GetBIOSVersion: {0}", HardwareDetector.MotherboardDetector.GetBIOSVersion());
+
+        //Storage
+        foreach (var disk in HardwareDetector.StorageDetector.GetDisks())
+            Console.WriteLine("Storage.GetDisks: {0}", disk);
+
+        //Printers
+        foreach (var printer in HardwareDetector.PrinterDetector.GetPrinters())
+            Console.WriteLine("Printer.GetPrinters: {0}", printer);
+
+        //Sound cards
+        foreach (var soundCard in HardwareDetector.SoundDetector.GetSoundCards())
+            Console.WriteLine("Sound.GetSoundCards: {0}", soundCard);
+
+        //Network cards
+        foreach (var networkAdapter in HardwareDetector.NetworkDetector.GetNetworkCards())
+            Console.WriteLine("Network.GetNetworkCards: {0}", networkAdapter);
+    }
+}
+```
