@@ -41,20 +41,8 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
             if (!File.Exists("/usr/bin/lshw"))
                 yield break;
 
-            var stdout = new StringBuilder();
-            var processStartInfo = new ProcessStartInfo("lshw", "-xml");
-            processStartInfo.RedirectStandardOutput = true;
-            processStartInfo.RedirectStandardError = true;
-
-            using (var statProcess = Process.Start(processStartInfo))
-            {
-                var statProcessOutputDataReceived = new DataReceivedEventHandler((sender, e) => stdout.AppendLine(e.Data));
-                statProcess.OutputDataReceived += statProcessOutputDataReceived;
-                statProcess.BeginOutputReadLine();
-                statProcess.WaitForExit();
-            }
-
-            var xdocument = XDocument.Parse(stdout.ToString());
+            var lshwStdout = Utils.RunCommand("lshw", "-xml");
+            var xdocument = XDocument.Parse(lshwStdout);
 
             var networkCards =
                 xdocument.Root

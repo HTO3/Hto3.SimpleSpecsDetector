@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 
@@ -9,7 +10,7 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
     {
         private static Boolean? isInsideContainer;
 
-        public static Boolean IsInsideContainer
+        internal static Boolean IsInsideContainer
         {
             get
             {
@@ -23,5 +24,22 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
             }
         }
 
+        internal static String RunCommand(String command, String args = null)
+        {
+            var stdout = new StringBuilder();
+            var processStartInfo = new ProcessStartInfo(command, args);
+            processStartInfo.RedirectStandardOutput = true;
+            processStartInfo.RedirectStandardError = true;
+
+            using (var statProcess = Process.Start(processStartInfo))
+            {
+                var statProcessOutputDataReceived = new DataReceivedEventHandler((sender, e) => stdout.AppendLine(e.Data));
+                statProcess.OutputDataReceived += statProcessOutputDataReceived;
+                statProcess.BeginOutputReadLine();
+                statProcess.WaitForExit();
+            }
+
+            return stdout.ToString();
+        }
     }
 }

@@ -13,9 +13,9 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
         public String GetOsVersionNumber()
         {
             var osrelease = File.ReadAllText("/etc/os-release");
-            var osreleaseMatch = Regex.Match(osrelease, @"VERSION_ID=""(?<value>.+)""");
+            var osreleaseMatch = Regex.Match(osrelease, @"VERSION_ID=(?<value>.+)");
 
-            return osreleaseMatch.Groups["value"].Value;
+            return osreleaseMatch.Groups["value"].Value.Trim('"');
         }
         
         public String GetOsVersionName()
@@ -34,40 +34,16 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
         
         public TimeSpan GetSystemUpTime()
         {
-            var stdout = new StringBuilder();
-            var processStartInfo = new ProcessStartInfo("stat", "/proc/1/");
-            processStartInfo.RedirectStandardOutput = true;
-            processStartInfo.RedirectStandardError = true;
-
-            using (var statProcess = Process.Start(processStartInfo))
-            {                
-                var statProcessOutputDataReceived = new DataReceivedEventHandler((sender, e) => stdout.AppendLine(e.Data));
-                statProcess.OutputDataReceived += statProcessOutputDataReceived;
-                statProcess.BeginOutputReadLine();
-                statProcess.WaitForExit();
-            }
-
-            var match = Regex.Match(stdout.ToString(), @"\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}\.\d+\s(\+|-)\d{4}");
+            var statStdout = Utils.RunCommand("stat", "/proc/1/");
+            var match = Regex.Match(statStdout, @"\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}\.\d+\s(\+|-)\d{4}");
             
             return DateTime.Now - DateTime.Parse(match.Value);
         }
 
         public String GetKernelVersion()
         {
-            var stdout = new StringBuilder();
-            var processStartInfo = new ProcessStartInfo("uname", "-r");
-            processStartInfo.RedirectStandardOutput = true;
-            processStartInfo.RedirectStandardError = true;
-
-            using (var statProcess = Process.Start(processStartInfo))
-            {
-                var statProcessOutputDataReceived = new DataReceivedEventHandler((sender, e) => stdout.AppendLine(e.Data));
-                statProcess.OutputDataReceived += statProcessOutputDataReceived;
-                statProcess.BeginOutputReadLine();
-                statProcess.WaitForExit();
-            }
-
-            return stdout.ToString().Trim();
+            var unameStdout = Utils.RunCommand("uname", "-r");
+            return unameStdout.Trim();
         }
     }
 }

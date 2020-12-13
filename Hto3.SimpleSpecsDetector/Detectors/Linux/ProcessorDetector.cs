@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -12,20 +13,8 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
     {        
         public String GetProcessorName()
         {
-            var stdout = new StringBuilder();
-            var processStartInfo = new ProcessStartInfo("lscpu");
-            processStartInfo.RedirectStandardOutput = true;
-            processStartInfo.RedirectStandardError = true;
-
-            using (var statProcess = Process.Start(processStartInfo))
-            {
-                var statProcessOutputDataReceived = new DataReceivedEventHandler((sender, e) => stdout.AppendLine(e.Data));
-                statProcess.OutputDataReceived += statProcessOutputDataReceived;
-                statProcess.BeginOutputReadLine();
-                statProcess.WaitForExit();
-            }
-
-            var match = Regex.Match(stdout.ToString(), @"Model name:\s+(?<value>.+)");
+            var cpuinfo = File.ReadAllText("/proc/cpuinfo");
+            var match = Regex.Match(cpuinfo, @"model\sname\s*:\s(?<value>.+)");
 
             return match.Groups["value"].Value;
         }

@@ -16,20 +16,8 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
             if (!File.Exists("/usr/bin/lpstat"))
                 yield break;
 
-            var stdout = new StringBuilder();
-            var processStartInfo = new ProcessStartInfo("lpstat", "-a -d");
-            processStartInfo.RedirectStandardOutput = true;
-            processStartInfo.RedirectStandardError = true;
-
-            using (var statProcess = Process.Start(processStartInfo))
-            {
-                var statProcessOutputDataReceived = new DataReceivedEventHandler((sender, e) => stdout.AppendLine(e.Data));
-                statProcess.OutputDataReceived += statProcessOutputDataReceived;
-                statProcess.BeginOutputReadLine();
-                statProcess.WaitForExit();
-            }
-
-            var lpstatOutput = stdout.ToString().Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            var lpstatStdout = Utils.RunCommand("lpstat", "-a -d");
+            var lpstatOutput = lpstatStdout.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
             var lastLpstatOutput = lpstatOutput[lpstatOutput.Length - 1];
             var defaultPrinterName = lastLpstatOutput.Substring(lastLpstatOutput.IndexOf(':') + 2);
 

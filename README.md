@@ -36,12 +36,13 @@ Supported Windows Versions
 
 Supported Linux Versions
 --------
--   No Support 😢
+-   Same as .NET supported list ([link](https://docs.microsoft.com/dotnet/core/install/linux)).
 
 Supported .NET Versions
 --------
 -   .NET Framework 4.x
 -   .NET Core 2.x and 3.x (through .NET Standard)
+-   .NET 5.0
 
 Features
 --------

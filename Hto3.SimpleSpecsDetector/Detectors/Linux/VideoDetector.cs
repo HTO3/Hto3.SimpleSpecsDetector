@@ -14,23 +14,11 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
     {        
         public String GetDisplayAdapterName()
         {
-            if (!File.Exists("/usr/bin/lspci"))
+            if (!File.Exists("/usr/bin/lspci") && !File.Exists("/sbin/lspci"))
                 return null;
 
-            var stdout = new StringBuilder();
-            var processStartInfo = new ProcessStartInfo("lspci");
-            processStartInfo.RedirectStandardOutput = true;
-            processStartInfo.RedirectStandardError = true;
-
-            using (var statProcess = Process.Start(processStartInfo))
-            {
-                var statProcessOutputDataReceived = new DataReceivedEventHandler((sender, e) => stdout.AppendLine(e.Data));
-                statProcess.OutputDataReceived += statProcessOutputDataReceived;
-                statProcess.BeginOutputReadLine();
-                statProcess.WaitForExit();
-            }
-
-            var match = Regex.Match(stdout.ToString(), @"VGA compatible controller:\s(?<value>.*)");
+            var lspciStdout = Utils.RunCommand("lspci");
+            var match = Regex.Match(lspciStdout, @"VGA compatible controller:\s(?<value>.+)");
 
             if (!match.Success)
                 return null;
@@ -42,43 +30,17 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
 
         public Int64? GetVideoMemory()
         {
-            if (!File.Exists("/usr/bin/lspci"))
+            if (!File.Exists("/usr/bin/lspci") && !File.Exists("/sbin/lspci"))
                 return null;
 
-            var stdout = new StringBuilder();
-
-            var lspciProcessStartInfo = new ProcessStartInfo("lspci");
-            lspciProcessStartInfo.RedirectStandardOutput = true;
-            lspciProcessStartInfo.RedirectStandardError = true;
-
-            using (var statProcess = Process.Start(lspciProcessStartInfo))
-            {
-                var statProcessOutputDataReceived = new DataReceivedEventHandler((sender, e) => stdout.AppendLine(e.Data));
-                statProcess.OutputDataReceived += statProcessOutputDataReceived;
-                statProcess.BeginOutputReadLine();
-                statProcess.WaitForExit();
-            }
-            
-            var pciMatch = Regex.Match(stdout.ToString(), @"(?<value>\d{2}:\d{2}\.\d)\sVGA compatible controller:");
+            var lspciStdout = Utils.RunCommand("lspci");
+            var pciMatch = Regex.Match(lspciStdout, @"(?<value>\d{2}:\d{2}\.\d)\sVGA compatible controller:");
 
             if (!pciMatch.Success)
                 return null;
 
-            stdout.Clear();
-
-            lspciProcessStartInfo = new ProcessStartInfo("lspci", $"-v -s {pciMatch.Groups["value"].Value}");
-            lspciProcessStartInfo.RedirectStandardOutput = true;
-            lspciProcessStartInfo.RedirectStandardError = true;
-
-            using (var statProcess = Process.Start(lspciProcessStartInfo))
-            {
-                var statProcessOutputDataReceived = new DataReceivedEventHandler((sender, e) => stdout.AppendLine(e.Data));
-                statProcess.OutputDataReceived += statProcessOutputDataReceived;
-                statProcess.BeginOutputReadLine();
-                statProcess.WaitForExit();
-            }
-
-            var memoryMatches = Regex.Matches(stdout.ToString(), @"Memory\sat\s[^\[]+\[size=(?<size>\d+)(?<unit>\w)\]");
+            lspciStdout = Utils.RunCommand("lspci", $"-v -s {pciMatch.Groups["value"].Value}");
+            var memoryMatches = Regex.Matches(lspciStdout, @"Memory\sat\s[^\[]+\[size=(?<size>\d+)(?<unit>\w)\]");
 
             if (memoryMatches.Count == 0)
                 return null;
@@ -116,19 +78,8 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
             if (!File.Exists("/usr/bin/xrandr"))
                 return null;
 
-            var stdout = new StringBuilder();
-            var processStartInfo = new ProcessStartInfo("xrandr", "--current");
-            processStartInfo.RedirectStandardOutput = true;
-
-            using (var statProcess = Process.Start(processStartInfo))
-            {
-                var statProcessOutputDataReceived = new DataReceivedEventHandler((sender, e) => stdout.AppendLine(e.Data));
-                statProcess.OutputDataReceived += statProcessOutputDataReceived;
-                statProcess.BeginOutputReadLine();
-                statProcess.WaitForExit();
-            }
-
-            var match = Regex.Match(stdout.ToString(), @"connected\s\w+\s(?<width>\d+)x(?<height>\d+)");
+            var xrandrStdout = Utils.RunCommand("xrandr", "--current");
+            var match = Regex.Match(xrandrStdout, @"connected\s\w+\s(?<width>\d+)x(?<height>\d+)");
 
             if (!match.Success)
                 return null;
