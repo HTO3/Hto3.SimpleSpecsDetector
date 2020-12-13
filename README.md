@@ -52,7 +52,8 @@ Features
    Linux: Get the VERSION_ID value.
 - `GetOsVersionName` Get the OS version name.
 - `GetInstalledFrameworkVersion` Get the higher .NET Framework version installed on machine. This method can detect starting from 4.0 version.
-- `GetSystemUpTime`Get system up time.
+- `GetSystemUpTime` Get system up time.
+- `GetKernelVersion` Get the OS kernel version.
 
 ### Processor
 - `GetProcessorName` Get the processor name.
