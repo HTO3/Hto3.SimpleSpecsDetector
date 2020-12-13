@@ -17,7 +17,11 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
             if (!File.Exists("/usr/bin/lspci") && !File.Exists("/sbin/lspci"))
                 return null;
 
-            var lspciStdout = Utils.RunCommand("lspci");
+            var lspciStdout = String.Empty;
+
+            try { lspciStdout = Utils.RunCommand("lspci"); }
+            catch { /*Some distos require sudo elavation to run lspci, at this moment, we'll not handle it.*/ }
+ 
             var match = Regex.Match(lspciStdout, @"VGA compatible controller:\s(?<value>.+)");
 
             if (!match.Success)
@@ -33,7 +37,11 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
             if (!File.Exists("/usr/bin/lspci") && !File.Exists("/sbin/lspci"))
                 return null;
 
-            var lspciStdout = Utils.RunCommand("lspci");
+            var lspciStdout = String.Empty;
+
+            try { lspciStdout = Utils.RunCommand("lspci"); }
+            catch { /*Some distos require sudo elavation to run lspci, at this moment, we'll not handle it.*/ }
+
             var pciMatch = Regex.Match(lspciStdout, @"(?<value>\d{2}:\d{2}\.\d)\sVGA compatible controller:");
 
             if (!pciMatch.Success)
