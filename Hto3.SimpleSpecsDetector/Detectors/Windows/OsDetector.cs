@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Management;
 using System.Text;
@@ -87,7 +88,8 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Windows
 
         public String GetKernelVersion()
         {
-            var kernelVersionInfo = FileVersionInfo.GetVersionInfo(@"C:\Windows\System32\ntoskrnl.exe");
+            var kernel32Path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "kernel32.dll");
+            var kernelVersionInfo = FileVersionInfo.GetVersionInfo(kernel32Path);
             return kernelVersionInfo.ProductVersion;
         }
     }

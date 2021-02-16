@@ -14,25 +14,21 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
     {        
         public IEnumerable<SoundCard> GetSoundCards()
         {
-            if (!File.Exists("/usr/bin/lshw"))
+            if (!File.Exists("/usr/bin/lshw") && !File.Exists("/usr/sbin/lshw"))
                 yield break;
 
-            var lshwStdout = Utils.RunCommand("lshw", "-xml");
+            var lshwStdout = Utils.RunCommand("lshw", "-xml -class multimedia");
             var xdocument = XDocument.Parse(lshwStdout);
 
-            var networkCards =
-                xdocument.Root
-                    .Element("node")
-                        .Descendants("node")
-                        .Where(n => n.Attribute("class").Value == "multimedia");
+            var soundCards = xdocument.Root.Descendants("node");
 
-            foreach (var networkCard in networkCards)
+            foreach (var soundCard in soundCards)
             {
                 yield return new SoundCard()
                 {
-                    DeviceID = networkCard.Element("physid")?.Value,
-                    Name = networkCard.Element("product")?.Value,
-                    Manufacturer = networkCard.Element("vendor")?.Value
+                    DeviceID = soundCard.Element("physid")?.Value,
+                    Name = soundCard.Element("product")?.Value,
+                    Manufacturer = soundCard.Element("vendor")?.Value
                 };
             }
         }
