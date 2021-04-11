@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace Hto3.SimpleSpecsDetector.Detectors.Linux
@@ -68,47 +69,41 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
 
         private IEnumerable<NetworkCard> GetNetworkCardsBy_ipaddr()
         {
-            var ipStdout = Utils.RunCommand("ip", "-json link");
+            var ipStdout = Utils.RunCommand("ip", "link");
 
-#if NETSTANDARD
+            var lines = ipStdout.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
-            var networkCards = Newtonsoft.Json.Linq.JArray.Parse(ipStdout);
-
-            foreach (var networkCard in networkCards)
+            for (var i = 0; i < lines.Length; i += 2)
             {
-                if (networkCard.Value<String>("link_type") != "ether")
+                if (!lines[i + 1].Contains("link/ether"))
                     continue;
 
+                var firstLineMatch = Regex.Match(lines[i], @"(?<id>\d+):\s(?<name>.+):\s<(?<tags>.+)>\s(?<key_value_pairs>.+)");
+                var id = firstLineMatch.Groups["id"].Value;
+                var name = firstLineMatch.Groups["name"].Value;
+
+                var rawKeyValuePairs = firstLineMatch.Groups["key_value_pairs"].Value
+                    .Split(' ')
+                    .Union
+                    (
+                        lines[i + 1]
+                            .Trim()
+                            .Split(' ')
+                    )
+                    .ToArray();
+
+                var properties = new Dictionary<String, String>();
+                for (var j = 0; j < rawKeyValuePairs.Length; j += 2)
+                    properties.Add(rawKeyValuePairs[j], rawKeyValuePairs[j + 1]);
+                
                 yield return new NetworkCard()
                 {
-                    MACAddress = networkCard.Value<String>("address"),
-                    DeviceID = networkCard.Value<Int32>("ifindex").ToString(),
-                    NetEnabled = networkCard.Value<String>("operstate") == "UP",
-                    Name = networkCard.Value<String>("ifname")
+                    MACAddress = properties["link/ether"],
+                    DeviceID = id,
+                    NetEnabled = properties["state"] == "UP",
+                    Name = name
                 };
             }
-
-#elif NET5_0
-
-            var networkCards = System.Text.Json.JsonDocument.Parse(ipStdout)
-                .RootElement
-                .EnumerateArray();
-
-            foreach (var networkCard in networkCards)
-            {
-                if (networkCard.GetProperty("link_type").GetString() != "ether")
-                    continue;
-
-                yield return new NetworkCard()
-                {
-                    MACAddress = networkCard.GetProperty("address").GetString(),
-                    DeviceID = networkCard.GetProperty("ifindex").GetInt32().ToString(),
-                    NetEnabled = networkCard.GetProperty("operstate").GetString() == "UP",
-                    Name = networkCard.GetProperty("ifname").GetString()
-                };
-            }
-#endif
-            yield break;
         }
     }
 }
