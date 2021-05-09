@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
@@ -95,15 +96,45 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
                 var properties = new Dictionary<String, String>();
                 for (var j = 0; j < rawKeyValuePairs.Length; j += 2)
                     properties.Add(rawKeyValuePairs[j], rawKeyValuePairs[j + 1]);
-                
+
+                var manufacturer = GetNetworkInterfaceVendorNameByMACAddress(properties["link/ether"]);
+
                 yield return new NetworkCard()
                 {
                     MACAddress = properties["link/ether"],
                     DeviceID = id,
                     NetEnabled = properties["state"] == "UP",
-                    Name = name
+                    Name = name,
+                    Manufacturer = manufacturer
                 };
             }
+        }
+
+        private String GetNetworkInterfaceVendorNameByMACAddress(String macAddress)
+        {
+            var line = default(String);
+            //http://standards-oui.ieee.org/oui/oui.txt
+            var resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Hto3.SimpleSpecsDetector.Resources.oui.txt");
+            using (var streamReader = new StreamReader(resourceStream, Encoding.UTF8, false, 1024))
+            {
+                var oui = macAddress
+                    .Substring(0, 8)
+                    .ToUpper()
+                    .Replace(':', '-');
+
+                do
+                {
+                    line = streamReader.ReadLine();
+                }
+                while
+                (
+                    line != null
+                    &&
+                    !line.StartsWith(oui)
+                );
+            }
+
+            return line?.Substring(line.IndexOf("\t\t") + 2);
         }
     }
 }

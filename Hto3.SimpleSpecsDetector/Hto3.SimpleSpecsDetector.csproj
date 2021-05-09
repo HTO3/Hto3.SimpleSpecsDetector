@@ -13,9 +13,9 @@
     <PackageTags>Hardware info detector information environment monitor spec specification</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.2.2</Version>
-    <FileVersion>1.2.2.0</FileVersion>
-    <AssemblyVersion>1.2.2.0</AssemblyVersion>
+    <Version>1.2.3</Version>
+    <FileVersion>1.2.3.0</FileVersion>
+    <AssemblyVersion>1.2.3.0</AssemblyVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>nuget-logo.png</PackageIcon>
   </PropertyGroup>
@@ -35,6 +35,14 @@
     <PackageReference Include="Microsoft.Win32.Registry">
       <Version>5.0.0</Version>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\oui.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\oui.txt" />
   </ItemGroup>
 
   <ItemGroup>
