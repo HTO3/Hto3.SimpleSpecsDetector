@@ -5,7 +5,7 @@ jobs:
     - stage: build
       script:
         - choco install dotnet-sdk
-        - dotnet restore SimpleSpecsDetector/SimpleSpecsDetector.csproj
+        - dotnet restore Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj
         - dotnet build Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj -f netstandard2.1
         - dotnet build Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj -f netstandard2.0
         - dotnet build Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj -f net5.0
