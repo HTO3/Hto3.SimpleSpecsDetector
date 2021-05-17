@@ -5,10 +5,11 @@ jobs:
     - stage: build
       script:
         - choco install dotnet-sdk
-        - dotnet restore Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj -s https://api.nuget.org/v3/index.json
-        - dotnet build Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj -f netstandard2.1
-        - dotnet build Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj -f netstandard2.0
-        - dotnet build Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj -f net5.0
+        - dotnet restore Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj --source https://api.nuget.org/v3/index.json
+        - dotnet build Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj --framework netstandard2.1
+        - dotnet build Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj --framework netstandard2.0
+        - dotnet build Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj --framework net5.0
     - stage: test
       script:
-        - dotnet run --project Hto3.SimpleSpecsDetector.TestNet50/Hto3.SimpleSpecsDetector.TestNet50.csproj
+        - choco install dotnet-sdk
+        - dotnet run --project Hto3.SimpleSpecsDetector.TestNet50/Hto3.SimpleSpecsDetector.TestNet50.csproj --framework net5.0
