@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,8 +52,11 @@ namespace Hto3.SimpleSpecsDetector.TestNet45
             foreach (var networkAdapter in HardwareDetector.NetworkDetector.GetNetworkCards())
                 Console.WriteLine("Network.GetNetworkCards: {0}", networkAdapter);
 
-            Console.WriteLine("\r\nPress any key to exit...");
-            Console.Read();
+            if (Debugger.IsAttached)
+            {
+                Console.WriteLine("\r\nPress any key to exit...");
+                Console.Read();
+            }
         }
     }
 }

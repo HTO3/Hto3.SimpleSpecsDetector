@@ -9,3 +9,6 @@ jobs:
         - dotnet build Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj -f netstandard2.1
         - dotnet build Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj -f netstandard2.0
         - dotnet build Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj -f net5.0
+    - stage: test
+      script:
+        - dotnet run --project Hto3.SimpleSpecsDetector.TestNet50/Hto3.SimpleSpecsDetector.TestNet50.csproj
