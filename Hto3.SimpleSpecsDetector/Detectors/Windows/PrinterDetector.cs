@@ -17,8 +17,24 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Windows
             var wql = new ObjectQuery("SELECT Caption, DriverName, Default FROM Win32_Printer");
             using (var searcher = new ManagementObjectSearcher(wql))
             {
-                foreach (var managementObject in searcher.Get())
+                var enumerator = searcher.Get().GetEnumerator();
+
+                while (true)
                 {
+                    var managementObject = default(ManagementBaseObject);
+
+                    try
+                    {
+                        if (!enumerator.MoveNext())
+                            break;
+
+                        managementObject = enumerator.Current;
+                    }
+                    catch (ManagementException)
+                    {
+                        break;
+                    }
+
                     var name = (String)managementObject["Caption"];
                     var driverName = (String)managementObject["DriverName"];
                     var defaultPrinter = (Boolean)managementObject["Default"];
