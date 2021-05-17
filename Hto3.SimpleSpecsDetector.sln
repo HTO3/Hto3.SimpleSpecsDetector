@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		.travis.yml = .travis.yml
 		example.png = example.png
 		LICENSE = LICENSE
 		nuget-logo.kra = nuget-logo.kra
@@ -26,7 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hto3.SimpleSpecsDetector.TestCore31", "Hto3.SimpleSpecsDetector.TestCore31\Hto3.SimpleSpecsDetector.TestCore31.csproj", "{F2B05F27-1E15-42F0-A7E3-4C3A9F042274}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hto3.SimpleSpecsDetector.TestNet50", "Hto3.SimpleSpecsDetector.TestNet50\Hto3.SimpleSpecsDetector.TestNet50.csproj", "{C665CA80-8C18-49A1-B143-DF36C7625A61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hto3.SimpleSpecsDetector.TestNet50", "Hto3.SimpleSpecsDetector.TestNet50\Hto3.SimpleSpecsDetector.TestNet50.csproj", "{C665CA80-8C18-49A1-B143-DF36C7625A61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

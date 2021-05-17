@@ -3,8 +3,10 @@
 Hto3.SimpleSpecsDetector
 ========================================
 
-#### Nuget Package
+[![License](https://img.shields.io/github/license/HTO3/Hto3.SimpleSpecsDetector)](https://github.com/HTO3/Hto3.SimpleSpecsDetector/blob/master/LICENSE)
 [![Hto3.SimpleSpecsDetector](https://img.shields.io/nuget/v/Hto3.SimpleSpecsDetector.svg)](https://www.nuget.org/packages/Hto3.SimpleSpecsDetector/)
+[![Downloads](https://img.shields.io/nuget/dt/Hto3.SimpleSpecsDetector)](https://www.nuget.org/stats/packages/Hto3.SimpleSpecsDetector?groupby=Version)
+[![Build Status](https://travis-ci.org/HTO3/Hto3.SimpleSpecsDetector.svg?branch=master)](https://travis-ci.org/HTO3/Hto3.SimpleSpecsDetector)
 
 Fully managed .NET library to detect the specs of the hardware, available in .NET Framework or .NET Core flavors (.NET Standard). This library intends to keep direct and simple, don't expect to retrieve all geek info like HWiNFO, AIDA64 or Speccy provides.
 
