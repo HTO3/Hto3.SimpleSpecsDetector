@@ -47,12 +47,6 @@ namespace Hto3.SimpleSpecsDetector.TestCore31
             //Network cards
             foreach (var networkAdapter in HardwareDetector.NetworkDetector.GetNetworkCards())
                 Console.WriteLine("Network.GetNetworkCards: {0}", networkAdapter);
-
-            if (Debugger.IsAttached)
-            {
-                Console.WriteLine("\r\nPress any key to exit...");
-                Console.Read();
-            }
         }
     }
 }
