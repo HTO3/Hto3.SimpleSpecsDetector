@@ -57,13 +57,19 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
 
             foreach (var networkCard in networkCards)
             {
+                var serial = networkCard.Element("serial")?.Value;
+                var vendor = networkCard.Element("vendor")?.Value;
+                var physid = networkCard.Element("physid")?.Value;
+                var link = networkCard.Element("link")?.Value;
+                var logicalname = networkCard.Element("logicalname")?.Value;
+
                 yield return new NetworkCard()
                 {
-                    MACAddress = networkCard.Element("serial")?.Value,
-                    DeviceID = networkCard.Element("physid")?.Value,
-                    NetEnabled = networkCard.Element("link")?.Value == "yes",
-                    Name = networkCard.Element("logicalname")?.Value,
-                    Manufacturer = networkCard.Element("vendor")?.Value
+                    MACAddress = serial,
+                    DeviceID = physid,
+                    NetEnabled = link == "yes",
+                    Name = logicalname,
+                    Manufacturer = String.IsNullOrEmpty(vendor) && !String.IsNullOrEmpty(serial) ? GetNetworkInterfaceVendorNameByMACAddress(serial) : vendor
                 };
             }
         }
