@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hto3.SimpleSpecsDetector.TestNet45
+namespace Hto3.SimpleSpecsDetector.TestNet461
 {
     class Program
     {

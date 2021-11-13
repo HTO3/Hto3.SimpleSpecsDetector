@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Hto3.SimpleSpecsDetector.TestNet40")]
+[assembly: AssemblyTitle("Hto3.SimpleSpecsDetector.TestNet461")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Hto3.SimpleSpecsDetector.TestNet40")]
+[assembly: AssemblyProduct("Hto3.SimpleSpecsDetector.TestNet461")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("92d1f7aa-21b1-45bf-9b50-3b447c3e8a9a")]
+[assembly: Guid("c28f1b2e-b78d-4bb9-9a01-eaf913788c69")]
 
 // Version information for an assembly consists of the following four values:
 //
