@@ -1,4 +1,4 @@
-﻿<img alt="logo" width="150" height="150" src="nuget-logo.png">
+﻿![logo](https://raw.githubusercontent.com/HTO3/Hto3.SimpleSpecsDetector/master/nuget-logo.png)
 
 Hto3.SimpleSpecsDetector
 ========================================
@@ -6,7 +6,7 @@ Hto3.SimpleSpecsDetector
 [![License](https://img.shields.io/github/license/HTO3/Hto3.SimpleSpecsDetector)](https://github.com/HTO3/Hto3.SimpleSpecsDetector/blob/master/LICENSE)
 [![Hto3.SimpleSpecsDetector](https://img.shields.io/nuget/v/Hto3.SimpleSpecsDetector.svg)](https://www.nuget.org/packages/Hto3.SimpleSpecsDetector/)
 [![Downloads](https://img.shields.io/nuget/dt/Hto3.SimpleSpecsDetector)](https://www.nuget.org/stats/packages/Hto3.SimpleSpecsDetector?groupby=Version)
-[![Build Status](https://travis-ci.com/HTO3/Hto3.SimpleSpecsDetector.svg?branch=master)](https://travis-ci.com/HTO3/Hto3.SimpleSpecsDetector)
+[![Build Status](https://github.com/HTO3/Hto3.SimpleSpecsDetector/actions/workflows/publish.yml/badge.svg)](https://github.com/HTO3/Hto3.SimpleSpecsDetector/actions/workflows/publish.yml)
 
 Fully managed .NET library to detect the specs of the hardware, available in .NET Framework or .NET Core flavors (.NET Standard). This library intends to keep direct and simple, don't expect to retrieve all geek info like HWiNFO, AIDA64 or Speccy provides.
 
@@ -14,9 +14,7 @@ This library is ideal for obtaining simple information from Desktops and Servers
 
 ##### Example
 
-<img alt="example" src="example.png">
-
- 
+![example](https://raw.githubusercontent.com/HTO3/Hto3.SimpleSpecsDetector/master/example.png) 
 
 Supported Windows Versions
 --------
@@ -42,9 +40,10 @@ Supported Linux Versions
 
 Supported .NET Versions
 --------
--   .NET Framework 4.x
+-   .NET Framework 4.6.1 to 4.8
 -   .NET Core 2.x and 3.x (through .NET Standard)
 -   .NET 5.0
+-   .NET 6.0
 
 Features
 --------
