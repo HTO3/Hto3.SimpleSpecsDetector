@@ -2,7 +2,7 @@ name: Hto3.SimpleSpecsDetector Pipeline
 on:
   push:
     branches:
-      - master # Default release branch
+      - master
 jobs:
   build:
     name: Build
@@ -12,10 +12,11 @@ jobs:
       - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.100
-      - run: dotnet build Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj
+      - run: dotnet build Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj --configuration Release
   test-linux:
     name: Test on Linux
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-dotnet@v1
@@ -25,6 +26,7 @@ jobs:
   test-windows:
     name: Test on Windows
     runs-on: windows-latest
+    needs: build
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-dotnet@v1
@@ -32,17 +34,15 @@ jobs:
           dotnet-version: 6.0.100 
       - run: dotnet run --project Hto3.SimpleSpecsDetector.TestNet60/Hto3.SimpleSpecsDetector.TestNet60.csproj --configuration Release
   publish:
-    name: build, pack & publish
+    name: Nuget Publish
     runs-on: windows-latest
+    needs: [test-linux, test-windows]
     steps:
       - uses: actions/checkout@v2
-
       - name: Setup dotnet
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.100
-
-      # Publish
       - name: publish on version change
         id: publish_nuget
         uses: rohith/publish-nuget@v2
