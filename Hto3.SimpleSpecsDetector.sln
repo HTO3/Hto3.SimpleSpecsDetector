@@ -23,7 +23,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hto3.SimpleSpecsDetector.Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hto3.SimpleSpecsDetector.TestNet50", "Hto3.SimpleSpecsDetector.TestNet50\Hto3.SimpleSpecsDetector.TestNet50.csproj", "{C665CA80-8C18-49A1-B143-DF36C7625A61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hto3.SimpleSpecsDetector.TestNet60", "Hto3.SimpleSpecsDetector.TestNet60\Hto3.SimpleSpecsDetector.TestNet60.csproj", "{D9BF0FA3-B71F-4AAB-BFC3-CC0D01E18D43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hto3.SimpleSpecsDetector.TestNet60", "Hto3.SimpleSpecsDetector.TestNet60\Hto3.SimpleSpecsDetector.TestNet60.csproj", "{D9BF0FA3-B71F-4AAB-BFC3-CC0D01E18D43}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{3DDCCB91-95B2-4AF0-820D-04A5354BA2AB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{6577B6CF-C2C1-4023-82A8-E4FC50D68B2B}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\publish.yml = .github\workflows\publish.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +61,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3DDCCB91-95B2-4AF0-820D-04A5354BA2AB} = {F354B9F8-F81F-4C8A-9040-34A76BB6339A}
+		{6577B6CF-C2C1-4023-82A8-E4FC50D68B2B} = {3DDCCB91-95B2-4AF0-820D-04A5354BA2AB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8B5704FF-7FB4-4384-A666-8AF90CE165E5}
