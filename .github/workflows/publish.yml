@@ -4,6 +4,15 @@ on:
     branches:
       - master # Default release branch
 jobs:
+  build:
+    name: Build
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.100
+      - run: dotnet build Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj
   test-linux:
     name: Test on Linux
     runs-on: ubuntu-latest
@@ -12,9 +21,7 @@ jobs:
       - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.100 
-      - run: dotnet restore Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj --source https://api.nuget.org/v3/index.json
-      - run: dotnet build Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj --framework net6.0
-      - run: dotnet run --project Hto3.SimpleSpecsDetector.TestNet60/Hto3.SimpleSpecsDetector.TestNet60.csproj --framework net6.0
+      - run: dotnet run --project Hto3.SimpleSpecsDetector.TestNet60/Hto3.SimpleSpecsDetector.TestNet60.csproj --configuration Release
   test-windows:
     name: Test on Windows
     runs-on: windows-latest
@@ -23,9 +30,7 @@ jobs:
       - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.100 
-      - run: dotnet restore Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj --source https://api.nuget.org/v3/index.json
-      - run: dotnet build Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj --framework net6.0
-      - run: dotnet run --project Hto3.SimpleSpecsDetector.TestNet60/Hto3.SimpleSpecsDetector.TestNet60.csproj --framework net6.0
+      - run: dotnet run --project Hto3.SimpleSpecsDetector.TestNet60/Hto3.SimpleSpecsDetector.TestNet60.csproj --configuration Release
   publish:
     name: build, pack & publish
     runs-on: windows-latest
