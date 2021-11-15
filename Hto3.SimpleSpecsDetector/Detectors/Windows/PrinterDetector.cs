@@ -1,4 +1,5 @@
-﻿using Hto3.SimpleSpecsDetector.Contracts;
+﻿#if WINDOWS
+using Hto3.SimpleSpecsDetector.Contracts;
 using Hto3.SimpleSpecsDetector.Models;
 using System;
 using System.Collections.Generic;
@@ -45,3 +46,4 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Windows
         }
     }
 }
+#endif

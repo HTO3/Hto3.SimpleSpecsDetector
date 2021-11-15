@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Hto3.SimpleSpecsDetector.TestNet60": {
+      "commandName": "Project"
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "environmentVariables": {},
+      "distributionName": ""
+    }
+  }
+}
