@@ -1,4 +1,4 @@
-﻿![logo](https://raw.githubusercontent.com/HTO3/Hto3.SimpleSpecsDetector/master/nuget-logo.png)
+﻿![logo](https://raw.githubusercontent.com/HTO3/Hto3.SimpleSpecsDetector/master/nuget-logo-small.png)
 
 Hto3.SimpleSpecsDetector
 ========================================
