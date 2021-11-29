@@ -18,6 +18,8 @@ This library is ideal for obtaining simple information from Desktops and Servers
 
 Supported Windows Versions
 --------
+-   Windows 11
+-   Windows Server 2022
 -   Windows 10
 -   Windows Server 2019
 -   Windows Server 2016
@@ -58,6 +60,7 @@ Features
 
 ### Processor
 - `GetProcessorName` Get the processor name.
+- `GetProcessorUsage` Mensure and get the current processor percent usage, where 0 is no load and 1 is full load. Default mensure time is 1 second.
 
 ### Video
 - `GetDisplayAdapterName` Get the display adapter name.
@@ -108,6 +111,7 @@ class Program
 
         //Processor
         Console.WriteLine("Processor.GetProcessorName: {0}", HardwareDetector.ProcessorDetector.GetProcessorName());
+        Console.WriteLine("Processor.GetProcessorUsage: {0}%", HardwareDetector.ProcessorDetector.GetProcessorUsage().Result);
 
         //Memory
         Console.WriteLine("Memory.GetFreeMemory: {0} bytes", HardwareDetector.MemoryDetector.GetFreeMemory());
