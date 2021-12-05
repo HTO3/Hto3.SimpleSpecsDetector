@@ -30,6 +30,9 @@ Supported Windows Versions
 -   Windows 7
 -   Windows Server 2008 R2
 -   Windows Server 2008
+
+Support up to version [1.2.3](https://www.nuget.org/packages/Hto3.SimpleSpecsDetector/1.2.3)
+
 -   Windows Vista
 -   Windows Server 2003 R2
 -   Windows Server 2003
