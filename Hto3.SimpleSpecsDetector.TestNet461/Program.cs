@@ -25,7 +25,7 @@ namespace Hto3.SimpleSpecsDetector.TestNet461
 
             //Processor
             Console.WriteLine("Processor.GetProcessorName: {0}", HardwareDetector.ProcessorDetector.GetProcessorName());
-            Console.WriteLine("Processor.GetProcessorUsage: {0}%", HardwareDetector.ProcessorDetector.GetProcessorUsage().Result);
+            Console.WriteLine("Processor.GetProcessorUsage: {0}", HardwareDetector.ProcessorDetector.GetProcessorUsage().Result);
 
             //Memory
             Console.WriteLine("Memory.GetFreeMemory: {0} bytes", HardwareDetector.MemoryDetector.GetFreeMemory());
