@@ -4,14 +4,47 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Hto3.SimpleSpecsDetector.Detectors.Linux
 {    
     internal class StorageDetector : IStorageDetector
     {        
         public IEnumerable<Disk> GetDisks()
+        {
+            if (File.Exists("/usr/bin/lsblk") || File.Exists("/usr/sbin/lsblk"))
+                return GetDisksBylsblk();
+            else
+                return GetDisksByProcPartitions();
+        }
+
+        private IEnumerable<Disk> GetDisksByProcPartitions()
+        {
+            var lines = File.ReadAllLines("/proc/partitions");
+
+            for (var i = 2; i < lines.Length; i++)
+            {
+                var parts = lines[i].Split(new Char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                if (!parts[3].StartsWith("sd"))
+                    continue;
+
+                var devicePath = Utils.RunCommand("readlink", $"-f /sys/class/block/{parts[3]}");
+                var match = Regex.Match(devicePath, "[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}");
+
+                yield return new Disk()
+                {
+                    DeviceID = match.Value,
+                    Name = parts[3],
+                    Size = UInt64.Parse(parts[2]) * 1000
+                };
+            }
+        }
+
+        private IEnumerable<Disk> GetDisksBylsblk()
         {
             const String COLUMN_WWN = "WWN";
             const String COLUMN_NAME = "NAME";
@@ -56,6 +89,6 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
                     Size = size
                 };
             }
-        }        
+        }
     }
 }
