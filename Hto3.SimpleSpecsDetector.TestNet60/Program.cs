@@ -42,4 +42,4 @@ foreach (var soundCard in HardwareDetector.SoundDetector.GetSoundCards())
 //Network cards
 foreach (var networkAdapter in HardwareDetector.NetworkDetector.GetNetworkCards())
     Console.WriteLine("Network.GetNetworkCards: {0}", networkAdapter);
-Console.WriteLine("Network.GetNetworkThroughput: {0}", await HardwareDetector.NetworkDetector.GetNetworkThroughput(NetworkInterface.GetAllNetworkInterfaces().Last().Description));
+Console.WriteLine("Network.GetNetworkThroughput: {0}", await HardwareDetector.NetworkDetector.GetNetworkThroughput(NetworkInterface.GetAllNetworkInterfaces().First(n => n.NetworkInterfaceType == NetworkInterfaceType.Ethernet).Description));

@@ -158,7 +158,7 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
                 throw new ArgumentException("The network name is null or empty.", nameof(name));
 
             if (!Directory.Exists($"/sys/class/net/{name}"))
-                throw new KeyNotFoundException("Network interface not found.");
+                throw new KeyNotFoundException($"Network interface '{name}' not found.");
 
             var receivedBytes1 = UInt64.Parse(File.ReadAllText($"/sys/class/net/{name}/statistics/rx_bytes"));
             var sentBytes1 = UInt64.Parse(File.ReadAllText($"/sys/class/net/{name}/statistics/tx_bytes"));

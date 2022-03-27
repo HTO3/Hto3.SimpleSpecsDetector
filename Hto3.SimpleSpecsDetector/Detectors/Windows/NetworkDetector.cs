@@ -98,7 +98,7 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Windows
                 }
 
                 if (index == -1)
-                    throw new KeyNotFoundException("Network interface not found.");
+                    throw new KeyNotFoundException($"Network interface '{name}' not found.");
             }
 
             cancellationToken.ThrowIfCancellationRequested();

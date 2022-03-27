@@ -53,7 +53,7 @@ namespace Hto3.SimpleSpecsDetector.TestNet461
             //Network cards
             foreach (var networkAdapter in HardwareDetector.NetworkDetector.GetNetworkCards())
                 Console.WriteLine("Network.GetNetworkCards: {0}", networkAdapter);
-            Console.WriteLine("Network.GetNetworkThroughput: {0}", HardwareDetector.NetworkDetector.GetNetworkThroughput(NetworkInterface.GetAllNetworkInterfaces().Last().Description).Result);
+            Console.WriteLine("Network.GetNetworkThroughput: {0}", HardwareDetector.NetworkDetector.GetNetworkThroughput(NetworkInterface.GetAllNetworkInterfaces().First(n => n.NetworkInterfaceType == NetworkInterfaceType.Ethernet).Description).Result);
 
             Console.WriteLine("\r\nPress any key to exit...");
             Console.Read();
