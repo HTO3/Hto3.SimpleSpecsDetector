@@ -9,11 +9,11 @@ namespace Hto3.SimpleSpecsDetector.Models
     /// </summary>
     public struct NetworkThroughput
     {
-        internal NetworkThroughput(String connectionName, UInt64 bytesReceived, UInt64 bytesSent)
+        internal NetworkThroughput(String name, UInt64 bytesReceived, UInt64 bytesSent)
         {
             this.BytesReceived = bytesReceived;
             this.BytesSent = bytesSent;
-            this.ConnectionName = connectionName;
+            this.Name = name;
         }
         /// <summary>
         /// Bytes received amount.
@@ -24,16 +24,16 @@ namespace Hto3.SimpleSpecsDetector.Models
         /// </summary>
         public UInt64 BytesSent { get; internal set; }
         /// <summary>
-        /// Network connection name that the OS expose to end users.
+        /// Network name that the OS expose to end users.
         /// </summary>
-        public String ConnectionName { get; internal set; }
+        public String Name { get; internal set; }
         /// <summary>
         /// Displays a representation of the network throughput.
         /// </summary>
         /// <returns></returns>
         public override string ToString()
         {
-            return $"{{ConnectionName={this.ConnectionName}, BytesReceived={this.BytesReceived}, BytesSent={this.BytesSent}}}"; 
+            return $"{{Name={this.Name}, BytesReceived={this.BytesReceived}, BytesSent={this.BytesSent}}}"; 
         }
     }
 }
