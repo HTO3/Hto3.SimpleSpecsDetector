@@ -8,6 +8,7 @@ using System.Linq;
 using System.Management;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 //Disable warning on OS specific classes
@@ -55,8 +56,15 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Windows
             }
         }
 
-        public async Task<NetworkThroughput> GetNetworkThroughput(String connectionName)
+        public Task<NetworkThroughput> GetNetworkThroughput(String connectionName)
         {
+            return GetNetworkThroughput(connectionName, default(CancellationToken));
+        }
+
+        public async Task<NetworkThroughput> GetNetworkThroughput(String connectionName, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
             if (String.IsNullOrWhiteSpace(connectionName))
                 throw new ArgumentException("The connection name is null or empty.", nameof(connectionName));
 
@@ -85,12 +93,14 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Windows
                 if (index == -1)
                     throw new KeyNotFoundException("Network interface not found.");
             }
-            
+
+            cancellationToken.ThrowIfCancellationRequested();
+
             var pIfRow1 = new MibIfRow2() { interfaceIndex = (UInt32)index };
             var pIfRow2 = new MibIfRow2() { interfaceIndex = (UInt32)index };
 
             GetIfEntry2(ref pIfRow1);
-            await Task.Delay(1000);
+            await Task.Delay(1000, cancellationToken);
             GetIfEntry2(ref pIfRow2);
 
             return new NetworkThroughput(connectionName, pIfRow2.inOctets - pIfRow1.inOctets, pIfRow2.outOctets - pIfRow1.outOctets);

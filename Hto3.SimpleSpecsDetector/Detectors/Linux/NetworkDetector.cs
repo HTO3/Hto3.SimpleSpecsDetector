@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -144,8 +145,15 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
             return line?.Substring(line.IndexOf("\t\t") + 2);
         }
 
-        public async Task<NetworkThroughput> GetNetworkThroughput(String connectionName)
+        public Task<NetworkThroughput> GetNetworkThroughput(String connectionName)
         {
+            return GetNetworkThroughput(connectionName, default(CancellationToken));
+        }
+
+        public async Task<NetworkThroughput> GetNetworkThroughput(String connectionName, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
             if (String.IsNullOrWhiteSpace(connectionName))
                 throw new ArgumentException("The network interface name is null or empty.", nameof(connectionName));
 
@@ -154,7 +162,7 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
 
             var receivedBytes1 = UInt64.Parse(File.ReadAllText($"/sys/class/net/{connectionName}/statistics/rx_bytes"));
             var sentBytes1 = UInt64.Parse(File.ReadAllText($"/sys/class/net/{connectionName}/statistics/tx_bytes"));
-            await Task.Delay(1000);
+            await Task.Delay(1000, cancellationToken);
             var receivedBytes2 = UInt64.Parse(File.ReadAllText($"/sys/class/net/{connectionName}/statistics/rx_bytes"));
             var sentBytes2 = UInt64.Parse(File.ReadAllText($"/sys/class/net/{connectionName}/statistics/tx_bytes"));
 
