@@ -142,7 +142,7 @@ class Program
         //Network cards
         foreach (var networkAdapter in HardwareDetector.NetworkDetector.GetNetworkCards())
             Console.WriteLine("Network.GetNetworkCards: {0}", networkAdapter);
-        Console.WriteLine("Network.GetNetworkThroughput: {0}", HardwareDetector.NetworkDetector.GetNetworkThroughput(NetworkInterface.GetAllNetworkInterfaces().Last().Name).Result);
+        Console.WriteLine("Network.GetNetworkThroughput: {0}", HardwareDetector.NetworkDetector.GetNetworkThroughput(NetworkInterface.GetAllNetworkInterfaces().Last().Description).Result);
     }
 }
 ```
