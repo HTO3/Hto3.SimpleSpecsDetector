@@ -1,4 +1,5 @@
 ﻿using Hto3.SimpleSpecsDetector;
+using System.Net.NetworkInformation;
 
 //Os
 Console.WriteLine("Os.GetOsVersionNumber: {0}", HardwareDetector.OsDetector.GetOsVersionNumber());
@@ -41,3 +42,4 @@ foreach (var soundCard in HardwareDetector.SoundDetector.GetSoundCards())
 //Network cards
 foreach (var networkAdapter in HardwareDetector.NetworkDetector.GetNetworkCards())
     Console.WriteLine("Network.GetNetworkCards: {0}", networkAdapter);
+Console.WriteLine("Network.GetNetworkThroughput: {0}", await HardwareDetector.NetworkDetector.GetNetworkThroughput(NetworkInterface.GetAllNetworkInterfaces().Last().Name));

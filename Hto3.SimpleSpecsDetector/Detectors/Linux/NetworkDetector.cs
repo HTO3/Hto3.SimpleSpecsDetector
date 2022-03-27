@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace Hto3.SimpleSpecsDetector.Detectors.Linux
@@ -141,6 +142,23 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
             }
 
             return line?.Substring(line.IndexOf("\t\t") + 2);
+        }
+
+        public async Task<NetworkThroughput> GetNetworkThroughput(String connectionName)
+        {
+            if (String.IsNullOrWhiteSpace(connectionName))
+                throw new ArgumentException("The network interface name is null or empty.", nameof(connectionName));
+
+            if (!Directory.Exists($"/sys/class/net/{connectionName}"))
+                throw new KeyNotFoundException("Network interface not found.");
+
+            var receivedBytes1 = UInt64.Parse(File.ReadAllText($"/sys/class/net/{connectionName}/statistics/rx_bytes"));
+            var sentBytes1 = UInt64.Parse(File.ReadAllText($"/sys/class/net/{connectionName}/statistics/tx_bytes"));
+            await Task.Delay(1000);
+            var receivedBytes2 = UInt64.Parse(File.ReadAllText($"/sys/class/net/{connectionName}/statistics/rx_bytes"));
+            var sentBytes2 = UInt64.Parse(File.ReadAllText($"/sys/class/net/{connectionName}/statistics/tx_bytes"));
+
+            return new NetworkThroughput(connectionName, receivedBytes2 - receivedBytes1, sentBytes2 - sentBytes1);
         }
     }
 }

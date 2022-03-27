@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -52,6 +53,7 @@ namespace Hto3.SimpleSpecsDetector.TestNet461
             //Network cards
             foreach (var networkAdapter in HardwareDetector.NetworkDetector.GetNetworkCards())
                 Console.WriteLine("Network.GetNetworkCards: {0}", networkAdapter);
+            Console.WriteLine("Network.GetNetworkThroughput: {0}", HardwareDetector.NetworkDetector.GetNetworkThroughput(NetworkInterface.GetAllNetworkInterfaces().Last().Name).Result);
 
             Console.WriteLine("\r\nPress any key to exit...");
             Console.Read();

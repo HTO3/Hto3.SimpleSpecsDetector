@@ -31,13 +31,13 @@ Supported Windows Versions
 -   Windows Server 2008 R2
 -   Windows Server 2008
 
-Support up to version [1.2.3](https://www.nuget.org/packages/Hto3.SimpleSpecsDetector/1.2.3)
+Discontinuated support. Use up to version [1.2.3](https://www.nuget.org/packages/Hto3.SimpleSpecsDetector/1.2.3)
 
--   Windows Vista
--   Windows Server 2003 R2
--   Windows Server 2003
--   Windows XP 64-Bit Edition
--   Windows XP
+-   ~~Windows Vista~~
+-   ~~Windows Server 2003 R2~~
+-   ~~Windows Server 2003~~
+-   ~~Windows XP 64-Bit Edition~~
+-   ~~Windows XP~~
 
 Supported Linux Versions
 --------
@@ -90,7 +90,8 @@ Features
 - `GetPrinters` Get all installed printers.
 
 ### Network
-- `GetNetworkCards` Get all connected network cards. 
+- `GetNetworkCards` Get all connected network cards.
+- `GetNetworkThroughput` Mensure 1 second and get the current network traffic throughput. Result in Bytes.
 
 Sample App
 ----------
@@ -141,6 +142,7 @@ class Program
         //Network cards
         foreach (var networkAdapter in HardwareDetector.NetworkDetector.GetNetworkCards())
             Console.WriteLine("Network.GetNetworkCards: {0}", networkAdapter);
+        Console.WriteLine("Network.GetNetworkThroughput: {0}", HardwareDetector.NetworkDetector.GetNetworkThroughput(NetworkInterface.GetAllNetworkInterfaces().Last().Name).Result);
     }
 }
 ```

@@ -13,9 +13,9 @@
     <PackageTags>Hardware info detector information environment monitor spec specification</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.2.8</Version>
-    <FileVersion>1.2.8.0</FileVersion>
-    <AssemblyVersion>1.2.8.0</AssemblyVersion>
+    <Version>1.2.9</Version>
+    <FileVersion>1.2.9.0</FileVersion>
+    <AssemblyVersion>1.2.9.0</AssemblyVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>nuget-logo.png</PackageIcon>
 	<IsWindows Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</IsWindows>
@@ -36,7 +36,7 @@
   	<DefineConstants>LINUX</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <DocumentationFile>bin\Release\Hto3.SimpleSpecsDetector.xml</DocumentationFile>
   </PropertyGroup>
 
