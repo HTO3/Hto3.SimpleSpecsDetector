@@ -145,28 +145,28 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
             return line?.Substring(line.IndexOf("\t\t") + 2);
         }
 
-        public Task<NetworkThroughput> GetNetworkThroughput(String connectionName)
+        public Task<NetworkThroughput> GetNetworkThroughput(String name)
         {
-            return GetNetworkThroughput(connectionName, default(CancellationToken));
+            return GetNetworkThroughput(name, default(CancellationToken));
         }
 
-        public async Task<NetworkThroughput> GetNetworkThroughput(String connectionName, CancellationToken cancellationToken)
+        public async Task<NetworkThroughput> GetNetworkThroughput(String name, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            if (String.IsNullOrWhiteSpace(connectionName))
-                throw new ArgumentException("The network interface name is null or empty.", nameof(connectionName));
+            if (String.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("The network name is null or empty.", nameof(name));
 
-            if (!Directory.Exists($"/sys/class/net/{connectionName}"))
+            if (!Directory.Exists($"/sys/class/net/{name}"))
                 throw new KeyNotFoundException("Network interface not found.");
 
-            var receivedBytes1 = UInt64.Parse(File.ReadAllText($"/sys/class/net/{connectionName}/statistics/rx_bytes"));
-            var sentBytes1 = UInt64.Parse(File.ReadAllText($"/sys/class/net/{connectionName}/statistics/tx_bytes"));
+            var receivedBytes1 = UInt64.Parse(File.ReadAllText($"/sys/class/net/{name}/statistics/rx_bytes"));
+            var sentBytes1 = UInt64.Parse(File.ReadAllText($"/sys/class/net/{name}/statistics/tx_bytes"));
             await Task.Delay(1000, cancellationToken);
-            var receivedBytes2 = UInt64.Parse(File.ReadAllText($"/sys/class/net/{connectionName}/statistics/rx_bytes"));
-            var sentBytes2 = UInt64.Parse(File.ReadAllText($"/sys/class/net/{connectionName}/statistics/tx_bytes"));
+            var receivedBytes2 = UInt64.Parse(File.ReadAllText($"/sys/class/net/{name}/statistics/rx_bytes"));
+            var sentBytes2 = UInt64.Parse(File.ReadAllText($"/sys/class/net/{name}/statistics/tx_bytes"));
 
-            return new NetworkThroughput(connectionName, receivedBytes2 - receivedBytes1, sentBytes2 - sentBytes1);
+            return new NetworkThroughput(name, receivedBytes2 - receivedBytes1, sentBytes2 - sentBytes1);
         }
     }
 }

@@ -61,32 +61,39 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Windows
             return GetNetworkThroughput(connectionName, default(CancellationToken));
         }
 
-        public async Task<NetworkThroughput> GetNetworkThroughput(String connectionName, CancellationToken cancellationToken)
+        public async Task<NetworkThroughput> GetNetworkThroughput(String name, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            if (String.IsNullOrWhiteSpace(connectionName))
-                throw new ArgumentException("The connection name is null or empty.", nameof(connectionName));
+            if (String.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("The network name is null or empty.", nameof(name));
 
             var index = -1;
 
-            using (var key = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default))
-            using (var netClasskey = key.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}", false))
+            using (var localMachinekey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default))
+            using (var netClassKey = localMachinekey.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}", false))
             {
-                var networkInterfaceKeyNames = netClasskey.GetSubKeyNames();
+                var networkInterfaceKeyNames = netClassKey.GetSubKeyNames();
 
                 foreach (var networkInterfaceKeyName in networkInterfaceKeyNames)
                 {
-                    var NetSetupPropertiesKey = netClasskey.OpenSubKey($@"{networkInterfaceKeyName}\NetSetupProperties");
-                    if (NetSetupPropertiesKey == null)
+                    if (!Int16.TryParse(networkInterfaceKeyName, out Int16 _))
                         continue;
 
-                    var netAlias = (String)NetSetupPropertiesKey.GetValue("NETSETUPPKEY_Interface_IfAliasBase");
-
-                    if (connectionName == netAlias)
+                    using (var deviceInstanceIDKey = netClassKey.OpenSubKey(networkInterfaceKeyName))
                     {
-                        index = Int32.Parse(networkInterfaceKeyName);
-                        break;
+                        var deviceInstanceID = (String)deviceInstanceIDKey.GetValue("DeviceInstanceID");
+
+                        using (var deviceKey = localMachinekey.OpenSubKey($@"SYSTEM\CurrentControlSet\Enum\{deviceInstanceID}"))
+                        {
+                            var friendlyName = (String)deviceKey.GetValue("FriendlyName");
+
+                            if (name == friendlyName)
+                            {
+                                index = Int32.Parse(networkInterfaceKeyName);
+                                break;
+                            }
+                        }
                     }
                 }
 
@@ -103,7 +110,7 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Windows
             await Task.Delay(1000, cancellationToken);
             GetIfEntry2(ref pIfRow2);
 
-            return new NetworkThroughput(connectionName, pIfRow2.inOctets - pIfRow1.inOctets, pIfRow2.outOctets - pIfRow1.outOctets);
+            return new NetworkThroughput(name, pIfRow2.inOctets - pIfRow1.inOctets, pIfRow2.outOctets - pIfRow1.outOctets);
         }
     }
 }

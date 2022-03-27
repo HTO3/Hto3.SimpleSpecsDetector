@@ -26,9 +26,9 @@ namespace Hto3.SimpleSpecsDetector.Contracts
         /// <summary>
         /// Mensure 1 second and get the current network traffic throughput. Result in Bytes.
         /// </summary>
-        /// <param name="connectionName">Network connection name that the OS expose to end users.</param>
+        /// <param name="name">Network name that the OS expose to end users.</param>
         /// <param name="cancellationToken">The cancellation token that will be checked prior to completing the returned task.</param>
         /// <returns></returns>
-        Task<NetworkThroughput> GetNetworkThroughput(String connectionName, CancellationToken cancellationToken);    
+        Task<NetworkThroughput> GetNetworkThroughput(String name, CancellationToken cancellationToken);    
     }
 }
