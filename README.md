@@ -51,6 +51,11 @@ Supported .NET Versions
 -   .NET 5.0
 -   .NET 6.0
 
+Related projects:
+----------------
+- https://openhardwaremonitor.org/ The Open Hardware Monitor supports most hardware monitoring chips found on todays mainboards. The CPU temperature can be monitored by reading the core temperature sensors of Intel and AMD processors. The sensors of ATI and Nvidia video cards as well as SMART hard drive temperature can be displayed. There is support from .NET Framework version 4.5 and above, besides the original project, you can find forks spread out there, for example supporting .NET Standard [[1](https://www.nuget.org/packages/OpenHardwareMonitorLibCore/)]. Open Hardware Monitor is much more complete compared with this project, specialized to retrieve sensors data.
+
+
 Features
 --------
 
