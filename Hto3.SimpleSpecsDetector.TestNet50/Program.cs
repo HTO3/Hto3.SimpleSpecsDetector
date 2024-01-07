@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Linq;
-using System.Diagnostics;
 using System.Net.NetworkInformation;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace Hto3.SimpleSpecsDetector.TestNet50
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             //Os
             Console.WriteLine("Os.GetOsVersionNumber: {0}", HardwareDetector.OsDetector.GetOsVersionNumber());
@@ -50,7 +50,7 @@ namespace Hto3.SimpleSpecsDetector.TestNet50
             //Network cards
             foreach (var networkAdapter in HardwareDetector.NetworkDetector.GetNetworkCards())
                 Console.WriteLine("Network.GetNetworkCards: {0}", networkAdapter);
-            Console.WriteLine("Network.GetNetworkThroughput: {0}", HardwareDetector.NetworkDetector.GetNetworkThroughput(NetworkInterface.GetAllNetworkInterfaces().First(n => n.NetworkInterfaceType == NetworkInterfaceType.Ethernet).Description).Result);
+            Console.WriteLine("Network.GetNetworkThroughput: {0}", await HardwareDetector.NetworkDetector.GetNetworkThroughput(NetworkInterface.GetAllNetworkInterfaces().First(n => n.NetworkInterfaceType == NetworkInterfaceType.Ethernet).Description));
         }
     }
 }

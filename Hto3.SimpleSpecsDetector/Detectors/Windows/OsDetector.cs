@@ -56,6 +56,8 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Windows
                 {
                     var release = (Int32)subkey.GetValue("Release");
 
+                    if (release >= 533320)
+                        return "4.8.1";
                     if (release >= 528040)
                         return "4.8.0";
                     if (release >= 461808)

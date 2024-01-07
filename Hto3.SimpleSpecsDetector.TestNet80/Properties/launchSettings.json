@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "Hto3.SimpleSpecsDetector.TestNet80": {
+      "commandName": "Project"
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
