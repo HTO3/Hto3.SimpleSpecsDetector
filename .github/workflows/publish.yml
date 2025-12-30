@@ -44,4 +44,4 @@ jobs:
           dotnet-version: 10.0.x
       - run: dotnet build -c Release Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj
       - run: dotnet pack --no-build -c Release Hto3.SimpleSpecsDetector/Hto3.SimpleSpecsDetector.csproj -o .
-      - run: dotnet nuget push *.nupkg -s https://api.nuget.org/v3/index.json -k ${{secrets.NUGET_API_KEY}} --skip-duplicate -n 1
+      - run: dotnet nuget push *.nupkg -s https://api.nuget.org/v3/index.json -k ${{secrets.NUGET_API_KEY}} --skip-duplicate -n
