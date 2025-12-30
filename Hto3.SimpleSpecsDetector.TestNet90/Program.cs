@@ -1,9 +1,6 @@
-﻿using System;
-using System.Net.NetworkInformation;
-using System.Threading.Tasks;
-using System.Linq;
+﻿using System.Net.NetworkInformation;
 
-namespace Hto3.SimpleSpecsDetector.TestNet50
+namespace Hto3.SimpleSpecsDetector.TestNet90
 {
     internal class Program
     {

@@ -47,11 +47,16 @@ Supported Linux Versions
 Supported .NET Versions
 --------
 -   .NET Framework 4.6.1 to 4.8.1
--   .NET Core 3.x (through .NET Standard)
--   .NET 5.0
 -   .NET 6.0
 -   .NET 7.0
 -   .NET 8.0
+-   .NET 9.0
+-   .NET 10.0
+
+Discontinuated support. Use up to version [1.2.9](https://www.nuget.org/packages/Hto3.SimpleSpecsDetector/1.2.9)
+
+-   ~~.NET Core 3.x (through .NET Standard)~~
+-   ~~.NET 5.0~~
 
 Related projects:
 ----------------

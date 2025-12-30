@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31903.59
+# Visual Studio Version 18
+VisualStudioVersion = 18.1.11312.151
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hto3.SimpleSpecsDetector", "Hto3.SimpleSpecsDetector\Hto3.SimpleSpecsDetector.csproj", "{E6B537E6-6E3E-473B-AB8A-59A4EDBC0A2E}"
 EndProject
@@ -32,9 +32,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hto3.SimpleSpecsDetector.Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hto3.SimpleSpecsDetector.TestNet80", "Hto3.SimpleSpecsDetector.TestNet80\Hto3.SimpleSpecsDetector.TestNet80.csproj", "{997B207E-52F4-4966-A396-4954698F896C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hto3.SimpleSpecsDetector.TestNet50", "Hto3.SimpleSpecsDetector.TestNet50\Hto3.SimpleSpecsDetector.TestNet50.csproj", "{7B4A3963-E4FD-4BA3-BCF1-D18FAD0D32A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hto3.SimpleSpecsDetector.TestNet100", "Hto3.SimpleSpecsDetector.TestNet100\Hto3.SimpleSpecsDetector.TestNet100.csproj", "{0AE5A532-364D-4744-A739-A90DA5121B8B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hto3.SimpleSpecsDetector.TestNetCore31", "Hto3.SimpleSpecsDetector.TestNetCore31\Hto3.SimpleSpecsDetector.TestNetCore31.csproj", "{D196232E-5400-4107-B364-14A536934FE8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hto3.SimpleSpecsDetector.TestNet90", "Hto3.SimpleSpecsDetector.TestNet90\Hto3.SimpleSpecsDetector.TestNet90.csproj", "{7DE82155-6654-4EED-B6B5-61C965D8C910}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,14 +62,14 @@ Global
 		{997B207E-52F4-4966-A396-4954698F896C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{997B207E-52F4-4966-A396-4954698F896C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{997B207E-52F4-4966-A396-4954698F896C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B4A3963-E4FD-4BA3-BCF1-D18FAD0D32A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B4A3963-E4FD-4BA3-BCF1-D18FAD0D32A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B4A3963-E4FD-4BA3-BCF1-D18FAD0D32A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B4A3963-E4FD-4BA3-BCF1-D18FAD0D32A7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D196232E-5400-4107-B364-14A536934FE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D196232E-5400-4107-B364-14A536934FE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D196232E-5400-4107-B364-14A536934FE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D196232E-5400-4107-B364-14A536934FE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AE5A532-364D-4744-A739-A90DA5121B8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AE5A532-364D-4744-A739-A90DA5121B8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AE5A532-364D-4744-A739-A90DA5121B8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AE5A532-364D-4744-A739-A90DA5121B8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DE82155-6654-4EED-B6B5-61C965D8C910}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DE82155-6654-4EED-B6B5-61C965D8C910}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DE82155-6654-4EED-B6B5-61C965D8C910}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DE82155-6654-4EED-B6B5-61C965D8C910}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

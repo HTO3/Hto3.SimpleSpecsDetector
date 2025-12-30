@@ -21,6 +21,12 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Windows
         [DllImport("iphlpapi.dll")]
         private static extern uint GetIfEntry2(ref MibIfRow2 pIfRow);
 
+        [DllImport("iphlpapi.dll")]
+        private static extern int GetIfTable2(out IntPtr Table);
+
+        [DllImport("iphlpapi.dll")]
+        private static extern void FreeMibTable(IntPtr Table);
+
         public IEnumerable<NetworkCard> GetNetworkCards()
         {
             var wqlText = "SELECT Name, PNPDeviceID, NetEnabled, Manufacturer, MACAddress FROM Win32_NetworkAdapter WHERE ";
@@ -68,49 +74,49 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Windows
             if (String.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("The network name is null or empty.", nameof(name));
 
-            var index = -1;
+            GetIfTable2(out var pTable);
 
-            using (var localMachinekey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default))
-            using (var netClassKey = localMachinekey.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}", false))
+            var table = Marshal.PtrToStructure<MibIfTable2>(pTable);
+            var firstRead = default(MibIfRow2);
+
+            for (int i = 0; i < table.NumEntries; i++)
             {
-                var networkInterfaceKeyNames = netClassKey.GetSubKeyNames();
-
-                foreach (var networkInterfaceKeyName in networkInterfaceKeyNames)
+                var row = new MibIfRow2();
+                row.interfaceIndex = (uint)i;
+                GetIfEntry2(ref row);
+                if (UShortArrayToString(row.description) == name)
                 {
-                    if (!Int16.TryParse(networkInterfaceKeyName, out Int16 _))
-                        continue;
-
-                    using (var deviceInstanceIDKey = netClassKey.OpenSubKey(networkInterfaceKeyName))
-                    {
-                        var deviceInstanceID = (String)deviceInstanceIDKey.GetValue("DeviceInstanceID");
-
-                        using (var deviceKey = localMachinekey.OpenSubKey($@"SYSTEM\CurrentControlSet\Enum\{deviceInstanceID}"))
-                        {
-                            var friendlyName = (String)deviceKey.GetValue("FriendlyName");
-
-                            if (name == friendlyName)
-                            {
-                                index = Int32.Parse(networkInterfaceKeyName);
-                                break;
-                            }
-                        }
-                    }
+                    firstRead = row;
+                    break;
                 }
-
-                if (index == -1)
-                    throw new KeyNotFoundException($"Network interface '{name}' not found.");
             }
 
+            FreeMibTable(pTable);
+
+            if (firstRead.Equals(default(MibIfRow2)))
+                throw new KeyNotFoundException($"Network interface '{name}' not found.");
+
             cancellationToken.ThrowIfCancellationRequested();
+            
+            var secondRead = new MibIfRow2() { interfaceIndex = firstRead.interfaceIndex };
 
-            var pIfRow1 = new MibIfRow2() { interfaceIndex = (UInt32)index };
-            var pIfRow2 = new MibIfRow2() { interfaceIndex = (UInt32)index };
-
-            GetIfEntry2(ref pIfRow1);
             await Task.Delay(1000, cancellationToken);
-            GetIfEntry2(ref pIfRow2);
 
-            return new NetworkThroughput(name, pIfRow2.inOctets - pIfRow1.inOctets, pIfRow2.outOctets - pIfRow1.outOctets);
+            GetIfEntry2(ref secondRead);
+
+            return new NetworkThroughput(name, secondRead.inOctets - firstRead.inOctets, secondRead.outOctets - firstRead.outOctets);
+        }
+
+        private static string UShortArrayToString(char[] arr)
+        {
+            if (arr == null)
+                return string.Empty;
+            var length = Array.IndexOf(arr, '\0');
+            if (length < 0)
+                length = arr.Length;
+            byte[] bytes = new byte[length * 2];
+            Buffer.BlockCopy(arr, 0, bytes, 0, bytes.Length);
+            return Encoding.Unicode.GetString(bytes);
         }
     }
 }
