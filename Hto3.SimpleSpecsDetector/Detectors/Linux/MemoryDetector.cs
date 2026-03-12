@@ -13,7 +13,7 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
         public UInt64 GetFreeMemory()
         {
             var meminfo = File.ReadAllText("/proc/meminfo");
-            var memFreeMatch = Regex.Match(meminfo, @"MemFree:\s+(?<value>\d+)\skB");
+            var memFreeMatch = Regex.Match(meminfo, @"MemAvailable:\s+(?<value>\d+)\skB");
 
             var memFreeValue = UInt64.Parse(memFreeMatch.Groups["value"].Value);
             return memFreeValue * 1000;
@@ -30,11 +30,7 @@ namespace Hto3.SimpleSpecsDetector.Detectors.Linux
 
         public UInt64 GetVisibleMemory()
         {
-            var meminfo = File.ReadAllText("/proc/meminfo");
-            var memAvailableMatch = Regex.Match(meminfo, @"MemAvailable:\s+(?<value>\d+)\skB");
-
-            var memAvailableValue = UInt64.Parse(memAvailableMatch.Groups["value"].Value);
-            return memAvailableValue * 1000;
+            return GetInstalledMemory();
         }
     }
 }
